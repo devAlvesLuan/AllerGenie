@@ -9,7 +9,7 @@ acao = int(input("Número: "))
 
 match acao:
     case 1:
-        login.executar()
+        login.executar_login()
     case 2: 
         cadastro.executar_cadastro()
 
