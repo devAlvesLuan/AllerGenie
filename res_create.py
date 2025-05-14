@@ -1,14 +1,20 @@
 import json
 import os
 import keyboard
+import getpass
+import hashlib
+char_especial = ['!','@','#','$','%','^','&','*','(',')','-','+','?','_','=',',','<','>','/','"'] #Adicionar checador de caractére espcial
+
+def criptografador(palavra_passe): #Criptografado o novo valor inserido para um aleatório em Secura Hash Algorithm de 256 bits
+    return hashlib.sha256(palavra_passe.encode()).hexdigest()
 
 def res_create():
     class Restaurante:
-        def __init__(self, nome_restaurante, opc, cnpj, email, senha): #Adiciona atributos às instâncias
+        def __init__(self, nome_restaurante, opc, cnpj, email, senha_1, senha_2): #Adiciona atributos às instâncias
             self.nome_restaurante = nome_restaurante 
             self.cnpj = cnpj
             self.email = email
-            self.senha = senha
+            self.senha = senha_1
 
 
         def criador_dic(self): #Converte todas as intâncias em dicionarios
@@ -16,11 +22,11 @@ def res_create():
                 "nome": self.nome_restaurante,
                 "cnpj": self.cnpj,
                 "email": self.email,
-                "senha": self.senha,
+                "senha": criptografador(self.senha), #Criptografa a senha inserida
                 "id": str(id(self.email))
             }
-    
-    def validador(nome_restaurante, opc, cnpj, email, senha):
+                  
+    def validador(nome_restaurante, opc, cnpj, email, senha_1, senha_2):
         if nome_restaurante != str(nome_restaurante): #Verifica se o dado inserido é válido
             print('Erro: O tipo de dado inserido é inválido. Utilize apenas Strings para o nome do restaurante.')
             return False
@@ -46,7 +52,20 @@ def res_create():
         elif '@' not in email or not email.endswith('.com'): #Verifica se o formato de emails está sendo seguido
             print('Erro: Insira um formato de email válido.')
             return False
-            
+        
+        if len(senha_1) < 10: #Verifica tamanho da senha
+            print('Erro: Senha deve conter no mínimo 10 caractéres.')
+            return False
+        elif senha_1.lower() == senha_1: #Verifica se a senha usou apenas letras minúsculas
+            print('Erro: Senha deve incluir pelo menos 1 letra maiúscula')
+            return False
+        elif senha_1 != senha_2: #Verifica se a primeira inserção da senha é igual a segunda
+            print('Erro: Senha não pode ser diferente da confirmação da senha.')
+            return False
+        elif senha_1 == '' or senha_2 == '': #Verifica se a senha foi preenchida ou não
+            print('Erro: Senha não pode estar vázia')
+            return False
+        
         dominios_val = ['gmail', 'hotmail', 'outlook', 'yahoo'] #Lista de domínios válidos
         encontrado = False #Checador de presença de dominio
 
@@ -61,6 +80,7 @@ def res_create():
 
         return True
 
+        
     print("================================================================\n          ---- Seja bem-vindo a tela de cadastro! ----\n================================================================")
 
     insert_2 = False
@@ -93,14 +113,14 @@ def res_create():
         else:
             insert_3 = 'Não cadastrado.'
         insert_4 = input('----------------------------\n  Insira seu email (Exemplo: Cleyton@gmail.com):')
-        insert_5 = input('----------------------------\n  insira sua senha:')
+        insert_5 = getpass.getpass('----------------------------\n  insira sua senha (Ela deve ter pelo menos 10 caractéres e incluir pelo menos uma letra maiúscula, um caractére especial e um número):')
+        insert_6 = getpass.getpass('----------------------------\n  Insira sua senha novamente:')
 
-        if validador(insert_1, insert_2, insert_3, insert_4, insert_5): #Checa se todos os valores insiredos são válidos
+        if validador(insert_1, insert_2, insert_3, insert_4, insert_5, insert_6): #Checa se todos os valores insiredos são válidos
             print('Cadastro realizado com sucesso.')
-            restaurant = Restaurante(insert_1, insert_2, insert_3, insert_4, insert_5) #Cria objeto
+            restaurant = Restaurante(insert_1, insert_2, insert_3, insert_4, insert_5, insert_6) #Cria objeto
             dados = []
-
-
+            
             caminho_json = 'restaurantes.json' #Nomeia arquivo JSON
 
             if os.path.exists(caminho_json): #Acessa JSON existente e começa a edita-lo

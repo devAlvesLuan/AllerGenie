@@ -19,5 +19,19 @@
         "email": "a@gmail.com",
         "senha": "s",
         "id": "1656243130096"
+    },
+    {
+        "nome": "Vampiros Hemobras",
+        "cnpj": "43210987654321",
+        "email": "dracula@yahoo.com",
+        "senha": "Dracula1234@",
+        "id": "1517833273776"
+    },
+    {
+        "nome": "VAMPIROS LTDA",
+        "cnpj": "Não cadastrado.",
+        "email": "vamp@gmail.com",
+        "senha": "8a019f7992986d10e49f6b1750c14153ce96ad1b5717243f15ab47e45f3a949a",
+        "id": "2611544966000"
     }
 ]
