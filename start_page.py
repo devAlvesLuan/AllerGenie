@@ -2,7 +2,7 @@ import keyboard
 from res_create import *
 
 def main():
-    print('================================================================\n          Bem vindo ao AllerGenie\n================================================================')
+    print('================================================================\n                     Bem vindo ao AllerGenie\n================================================================')
     print('----------------------------\n  Pressione a tecla \'Space_Bar\'  para começar')
     keyboard.wait('space_bar') #Espera uma tecla até seguir em frente
     print('----------------------------\n  Iniciando...')
