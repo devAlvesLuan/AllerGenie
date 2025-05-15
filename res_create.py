@@ -1,30 +1,31 @@
 import json
 import os
 import keyboard
-import getpass
+import pwinput
 import hashlib
-char_especial = ['!','@','#','$','%','^','&','*','(',')','-','+','?','_','=',',','<','>','/','"'] #Adicionar checador de caractére espcial
+char_especial = ['!','@','#','$','%','^','&','*','(',')','-','+','?','_','=',',','<','>','/','"', '\'','\\'] #Adicionar checador de caractére espcial
 
 def criptografador(palavra_passe): #Criptografado o novo valor inserido para um aleatório em Secura Hash Algorithm de 256 bits
     return hashlib.sha256(palavra_passe.encode()).hexdigest()
 
+class Restaurante:
+    def __init__(self, nome_restaurante, opc, cnpj, email, senha_1, senha_2): #Adiciona atributos às instâncias
+        self.nome_restaurante = nome_restaurante 
+        self.cnpj = cnpj
+        self.email = email
+        self.senha = senha_1
+
+
+    def criador_dic(self): #Converte todas as intâncias em dicionarios
+        return {
+            "nome": self.nome_restaurante,
+            "cnpj": self.cnpj,
+            "email": self.email,
+            "senha": criptografador(self.senha), #Criptografa a senha inserida
+            "id": str(id(self.email))
+        }
+
 def res_create():
-    class Restaurante:
-        def __init__(self, nome_restaurante, opc, cnpj, email, senha_1, senha_2): #Adiciona atributos às instâncias
-            self.nome_restaurante = nome_restaurante 
-            self.cnpj = cnpj
-            self.email = email
-            self.senha = senha_1
-
-
-        def criador_dic(self): #Converte todas as intâncias em dicionarios
-            return {
-                "nome": self.nome_restaurante,
-                "cnpj": self.cnpj,
-                "email": self.email,
-                "senha": criptografador(self.senha), #Criptografa a senha inserida
-                "id": str(id(self.email))
-            }
                   
     def validador(nome_restaurante, opc, cnpj, email, senha_1, senha_2):
         if nome_restaurante != str(nome_restaurante): #Verifica se o dado inserido é válido
@@ -113,8 +114,8 @@ def res_create():
         else:
             insert_3 = 'Não cadastrado.'
         insert_4 = input('----------------------------\n  Insira seu email (Exemplo: Cleyton@gmail.com):')
-        insert_5 = getpass.getpass('----------------------------\n  insira sua senha (Ela deve ter pelo menos 10 caractéres e incluir pelo menos uma letra maiúscula, um caractére especial e um número):')
-        insert_6 = getpass.getpass('----------------------------\n  Insira sua senha novamente:')
+        insert_5 = pwinput.pwinput(prompt='----------------------------\n  insira sua senha (Pelo menos 10 caractéres e incluir pelo menos uma letra maiúscula, um caractére especial e um número):', mask = '*')
+        insert_6 = pwinput.pwinput(prompt='----------------------------\n  Insira sua senha novamente:', mask = '*')
 
         if validador(insert_1, insert_2, insert_3, insert_4, insert_5, insert_6): #Checa se todos os valores insiredos são válidos
             print('Cadastro realizado com sucesso.')
