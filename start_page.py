@@ -1,6 +1,7 @@
 import keyboard
-from res_login import *
+from login import *
 from res_create import *
+from menu_principal import *
 
 def main():
     print('================================================================\n                     Bem vindo ao AllerGenie\n================================================================')
@@ -14,13 +15,13 @@ def main():
     execucao = True
     while execucao:      #Mantém o código operando
         if keyboard.read_key() == '1': #Checa qual tecla foi pressionada e para onde o código deve seguir
-            executar_login()
-            print('----------------------------\n  Realizando login')
-            execucao = False
+            print('----------------------------\n  Realizando login da empresa...')
+            login('restaurantes.json')
+            menu()
         elif keyboard.read_key() == '2':
-            print('----------------------------\n  Realizando cadastro')
+            print('----------------------------\n  Realizando cadastro da empresa...')
             res_create()
-            execucao = False
+            menu()
         elif keyboard.read_key() == 'esc':
             print('----------------------------\n  Saindo...')
             execucao = False

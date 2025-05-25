@@ -69,7 +69,13 @@ def res_create():
         elif senha_1 == '' or len(senha_1.strip()) == 0: #Verifica se a senha foi preenchida ou não
             print('Erro: Senha não pode estar vázia')
             return False
-        
+        contador_num = 0
+        for caractere in senha_1:
+            if caractere.isdigit():
+                contador_num += 1
+        if contador_num < 2:
+            print('Erro: Senha deve conter no mínimo 2 dígitos.')
+
         dominios_val = ['gmail', 'hotmail', 'outlook', 'yahoo'] #Lista de domínios válidos
         encontrado = False #Checador de presença de dominio
 
@@ -117,11 +123,11 @@ def res_create():
         else:
             cnpj = 'Não cadastrado.'
         email_emp = input('----------------------------\n  Insira seu email (Exemplo: Cleyton@gmail.com):')
-        senha_emp = pwinput.pwinput(prompt='----------------------------\n  insira sua senha (Pelo menos 10 caractéres e incluir pelo menos uma letra maiúscula, um caractére especial e um número):', mask = '*')
+        senha_emp = pwinput.pwinput(prompt='----------------------------\n  insira sua senha (Ela deve incluir pelo menos 10 caractéres, uma letra maiúscula e dois número):', mask = '*')
         confirm_senha = pwinput.pwinput(prompt='----------------------------\n  Insira sua senha novamente:', mask = '*')
 
         if validador(nome_emp, cnpj_opc, cnpj, email_emp, senha_emp, confirm_senha): #Checa se todos os valores insiredos são válidos
-            print('Cadastro realizado com sucesso.')
+            print('-- Cadastro realizado com sucesso! --')
             restaurant = Restaurante(nome_emp, cnpj_opc, cnpj, email_emp, senha_emp, confirm_senha) #Cria objeto
             dados = []
 
