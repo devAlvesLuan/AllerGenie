@@ -3,11 +3,14 @@ import os
 import keyboard
 import pwinput
 import hashlib
-char_especial = ['!','@','#','$','%','^','&','*','(',')','-','+','?','_','=',',','<','>','/','"', '\'','\\'] #Adicionar checador de caractére espcial
 
-def criptografador(palavra_passe): #Criptografado o novo valor inserido para um aleatório em Secura Hash Algorithm de 256 bits
+def criptografador(palavra_passe):
     return hashlib.sha256(palavra_passe.encode()).hexdigest()
 
+    """
+    Criptografa o novo valor inserido para um aleatório em Secura Hash Algorithm de 256 bits
+
+    """
 class Restaurante:
     def __init__(self, nome_restaurante, opc, cnpj, email, senha_1, senha_2): #Adiciona atributos às instâncias
         self.nome_restaurante = nome_restaurante 
@@ -26,7 +29,7 @@ class Restaurante:
         }
 
 def res_create():
-                  
+
     def validador(nome_restaurante, opc, cnpj, email, senha_1, senha_2):
         if nome_restaurante != str(nome_restaurante): #Verifica se o dado inserido é válido
             print('Erro: O tipo de dado inserido é inválido. Utilize apenas Strings para o nome do restaurante.')
@@ -81,17 +84,17 @@ def res_create():
 
         return True
 
-        
+
     print("================================================================\n          ---- Seja bem-vindo a tela de cadastro! ----\n================================================================")
 
-    insert_2 = False
-    execucao_1 = True
-    execucao_2 = True
+    cnpj_opc = False
+    execucao_opc = True
+    execucao_cadastro = True
 
-    while execucao_2: #Executado enquanto o código não encontrar um cadastro válido
-        insert_1 = input('----------------------------\n  Insira o nome da empresa:')
+    while execucao_cadastro: #Executado enquanto o código não encontrar um cadastro válido
+        nome_emp = input('----------------------------\n  Insira o nome da empresa:')
         print('----------------------------\n  Incluir CNPJ? (Opcional)\n 1. Sim\n 2. Não')
-        while execucao_1:
+        while execucao_opc:
             evento = keyboard.read_event()#Consertar o seu buffer no loop while
             keyboard.clear_all_hotkeys()
 
@@ -99,29 +102,29 @@ def res_create():
                 chave = evento.name
 
                 if chave == '2': #Realiza a checagem de se a tecla pressionada é válida ou não e qual a opção selecionada
-                    insert_2 = False
-                    execucao_1 = False
+                    cnpj_opc = False
+                    execucao_opc = False
                     break
                 elif chave == '1':
-                    insert_2 = True
-                    execucao_1 = False
+                    cnpj_opc = True
+                    execucao_opc = False
                     break
                 else:
                     print('Erro: Inserção inválida')
 
-        if insert_2: #Checa se o usuário quer inserir CNPJ ou não
-            insert_3 = input('----------------------------\n  insira seu CNPJ:')
+        if cnpj_opc: #Checa se o usuário quer inserir CNPJ ou não
+            cnpj = input('----------------------------\n  insira seu CNPJ:')
         else:
-            insert_3 = 'Não cadastrado.'
-        insert_4 = input('----------------------------\n  Insira seu email (Exemplo: Cleyton@gmail.com):')
-        insert_5 = pwinput.pwinput(prompt='----------------------------\n  insira sua senha (Pelo menos 10 caractéres e incluir pelo menos uma letra maiúscula, um caractére especial e um número):', mask = '*')
-        insert_6 = pwinput.pwinput(prompt='----------------------------\n  Insira sua senha novamente:', mask = '*')
+            cnpj = 'Não cadastrado.'
+        email_emp = input('----------------------------\n  Insira seu email (Exemplo: Cleyton@gmail.com):')
+        senha_emp = pwinput.pwinput(prompt='----------------------------\n  insira sua senha (Pelo menos 10 caractéres e incluir pelo menos uma letra maiúscula, um caractére especial e um número):', mask = '*')
+        confirm_senha = pwinput.pwinput(prompt='----------------------------\n  Insira sua senha novamente:', mask = '*')
 
-        if validador(insert_1, insert_2, insert_3, insert_4, insert_5, insert_6): #Checa se todos os valores insiredos são válidos
+        if validador(nome_emp, cnpj_opc, cnpj, email_emp, senha_emp, confirm_senha): #Checa se todos os valores insiredos são válidos
             print('Cadastro realizado com sucesso.')
-            restaurant = Restaurante(insert_1, insert_2, insert_3, insert_4, insert_5, insert_6) #Cria objeto
+            restaurant = Restaurante(nome_emp, cnpj_opc, cnpj, email_emp, senha_emp, confirm_senha) #Cria objeto
             dados = []
-            
+
             caminho_json = 'restaurantes.json' #Nomeia arquivo JSON
 
             if os.path.exists(caminho_json): #Acessa JSON existente e começa a edita-lo
@@ -133,4 +136,4 @@ def res_create():
             with open(caminho_json, 'w', encoding='utf-8') as f: #Salva dados alterados
                 json.dump(dados, f, indent = 4, ensure_ascii= False)
 
-            execucao_2 = False #Finaliza processo while
+            execucao_cadastro = False #Finaliza processo while

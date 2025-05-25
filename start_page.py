@@ -1,4 +1,5 @@
 import keyboard
+from res_login import *
 from res_create import *
 
 def main():
@@ -13,6 +14,7 @@ def main():
     execucao = True
     while execucao:      #Mantém o código operando
         if keyboard.read_key() == '1': #Checa qual tecla foi pressionada e para onde o código deve seguir
+            executar_login()
             print('----------------------------\n  Realizando login')
             execucao = False
         elif keyboard.read_key() == '2':
