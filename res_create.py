@@ -63,7 +63,7 @@ def res_create():
         elif senha_1 != senha_2: #Verifica se a primeira inserção da senha é igual a segunda
             print('Erro: Senha não pode ser diferente da confirmação da senha.')
             return False
-        elif senha_1 == '' or senha_2 == '': #Verifica se a senha foi preenchida ou não
+        elif senha_1 == '' or len(senha_1.strip()) == 0: #Verifica se a senha foi preenchida ou não
             print('Erro: Senha não pode estar vázia')
             return False
         
