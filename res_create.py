@@ -30,6 +30,12 @@ class Restaurante:
 
 def res_create():
 
+    dados = []
+    caminho_json = 'restaurantes.json' #Nomeia arquivo JSON
+    if os.path.exists(caminho_json): #Acessa JSON existente e começa a edita-lo
+        with open(caminho_json, 'r', encoding='utf-8') as f:
+            dados = json.load(f)
+
     def validador(nome_restaurante, opc, cnpj, email, senha_1, senha_2):
         if nome_restaurante != str(nome_restaurante): #Verifica se o dado inserido é válido
             print('Erro: O tipo de dado inserido é inválido. Utilize apenas Strings para o nome do restaurante.')
@@ -48,15 +54,35 @@ def res_create():
             elif len(cnpj) != 14: #Verifica o número de letras do CNPJ
                 print('Erro: Número de caractéres está incorreto')
                 return False
+            for usuario in dados:
+                if usuario.get('cnpj') == cnpj:
+                    print('Erro: CNPJ já cadastrado. Remova o CNPJ de sua conta anterior para adicioná-lo ao novo cadastro.')
+                    return False
 
-
+        dominios_val = ['gmail', 'hotmail', 'outlook', 'yahoo'] #Lista de domínios válidos
+        encontrado = False #Checador de presença de dominio
+        for dominio in dominios_val: #Verifica elemento por elemento na lista
+            if dominio in email: #Verifica se o elemento está na variável
+                encontrado = True
+                break
         if email != str(email): #Verifica se o dado inserido é válido
             print('Erro: O tipo de dado inserido é inválido. Utilize apenas Strings para o nome do restaurante.')
             return False
         elif '@' not in email or not email.endswith('.com'): #Verifica se o formato de emails está sendo seguido
             print('Erro: Insira um formato de email válido.')
             return False
+        elif not encontrado: #Caso não possua dominio valido
+            print('Erro: Insira um dominio válido.(gmail, hotmail, yahoo ou outlook)')
+            return False
+        for usuario in dados:
+            if usuario.get('email') == email:
+                print('Erro: Email já cadastrado.')
+                return False
         
+        contador_num = 0
+        for caractere in senha_1:
+            if caractere.isdigit():
+                contador_num += 1
         if len(senha_1) < 10: #Verifica tamanho da senha
             print('Erro: Senha deve conter no mínimo 10 caractéres.')
             return False
@@ -69,24 +95,8 @@ def res_create():
         elif senha_1 == '' or len(senha_1.strip()) == 0: #Verifica se a senha foi preenchida ou não
             print('Erro: Senha não pode estar vázia')
             return False
-        contador_num = 0
-        for caractere in senha_1:
-            if caractere.isdigit():
-                contador_num += 1
         if contador_num < 2:
-            print('Erro: Senha deve conter no mínimo 2 dígitos.')
-
-        dominios_val = ['gmail', 'hotmail', 'outlook', 'yahoo'] #Lista de domínios válidos
-        encontrado = False #Checador de presença de dominio
-
-        for dominio in dominios_val: #Verifica elemento por elemento na lista
-            if dominio in email: #Verifica se o elemento está na variável
-                encontrado = True
-                break
-        
-        if not encontrado: #Caso não possua dominio valido
-            print('Erro: Insira um dominio válido.(gmail, hotmail, yahoo ou outlook)')
-            return False
+            print('Erro: Senha deve conter no mínimo 2 dígitos')
 
         return True
 
@@ -127,15 +137,8 @@ def res_create():
         confirm_senha = pwinput.pwinput(prompt='----------------------------\n  Insira sua senha novamente:', mask = '*')
 
         if validador(nome_emp, cnpj_opc, cnpj, email_emp, senha_emp, confirm_senha): #Checa se todos os valores insiredos são válidos
-            print('-- Cadastro realizado com sucesso! --')
+            print('Cadastro realizado com sucesso.')
             restaurant = Restaurante(nome_emp, cnpj_opc, cnpj, email_emp, senha_emp, confirm_senha) #Cria objeto
-            dados = []
-
-            caminho_json = 'restaurantes.json' #Nomeia arquivo JSON
-
-            if os.path.exists(caminho_json): #Acessa JSON existente e começa a edita-lo
-                with open(caminho_json, 'r', encoding='utf-8') as f:
-                    dados = json.load(f)
 
             dados.append(restaurant.criador_dic()) #Adiciona dados ao arquivo
 

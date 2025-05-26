@@ -6,6 +6,7 @@ def login(caminho_json):
     caminho = caminho_json
     with open(caminho, 'r', encoding='utf-8') as file:
         banco_dados = json.load(file)
+        return banco_dados
 
     executando = True
 
@@ -22,7 +23,7 @@ def login(caminho_json):
 
         if usuario_encontrado:
             senha = pwinput.pwinput(prompt='----------------------------\nInsira sua senha:', mask = '*')
-            if usuario.get('senha') == senha:
+            if usuario.get('senha') == criptografador(senha):
                 print("-- Login realizado com sucesso! --")
                 executando = False
             else:

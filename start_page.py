@@ -1,32 +1,56 @@
-import keyboard
 from login import *
-from res_create import *
+from cliente_create import *
 from menu_principal import *
 
 def main():
+    def opcoes_cad_login(exe, usuario,repositorio_json, modulo):
+        while exe:
+            operacao = str(input('----------------------------\n  Selecione uma das seguintes opções:\n1. Login \n2. Cadastro\n0. Encerrar\n'))
+            if operacao == '1': #Checa qual tecla foi pressionada e para onde o código deve seguir
+                print(f'----------------------------\n  Realizando login de {usuario}...')
+                login(repositorio_json)
+                menu()
+            elif operacao == '2':
+                print(f'----------------------------\n  Realizando cadastro de {usuario}...')
+                modulo()
+                menu()
+            elif operacao == '0':
+                print('----------------------------\n  Saindo...')
+                exe = False
+            else:
+                print('----------------------------\n  Erro: Inserção inválida.')
+ 
     print('================================================================\n                     Bem vindo ao AllerGenie\n================================================================')
-    print('----------------------------\n  Pressione a \'Barra de Espaço\' para começar')
-    keyboard.wait('space_bar') #Espera uma tecla até seguir em frente
-    print('----------------------------\n  Iniciando...')
-
-
-    print('----------------------------\n  Selecione uma das seguintes opções:\n1. Login \n2. Cadastro\nESCAPE. Encerrar')
+    
+    execucao = True
+    while execucao:
+        comeco = input('----------------------------\n  Pressione \'Enter\' para começar')
+        if comeco == '':
+            print('----------------------------\n  Iniciando...')
+            execucao = False
 
     execucao = True
-    while execucao:      #Mantém o código operando
-        if keyboard.read_key() == '1': #Checa qual tecla foi pressionada e para onde o código deve seguir
-            print('----------------------------\n  Realizando login da empresa...')
-            login('restaurantes.json')
-            menu()
-        elif keyboard.read_key() == '2':
-            print('----------------------------\n  Realizando cadastro da empresa...')
-            res_create()
-            menu()
-        elif keyboard.read_key() == 'esc':
-            print('----------------------------\n  Saindo...')
+    empresa = False
+    cliente = False
+
+    while execucao:
+        opcao = str(input('----------------------------\n Gostaria de entrar como: \n1. Cliente\n2. Empresa\n').strip())
+        if opcao == '1':
+            print('Entrando como cliente...')
+            cliente = True
+            execucao = False
+        elif opcao == '2':
+            print('Entrando como empresa...')
+            empresa = True
             execucao = False
         else:
             print('----------------------------\n  Erro: Inserção inválida.')
+
+    execucao = True
+    if empresa:
+        opcoes_cad_login(execucao,'restaurantes','restaurantes.json',res_create)
+    if cliente:
+        opcoes_cad_login(execucao, 'clientes','clientes.json',cliente_create)
         
 
 if __name__ == "__main__": #Define o seguimento como principal
