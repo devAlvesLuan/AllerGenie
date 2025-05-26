@@ -1,3 +1,18 @@
+<<<<<<< HEAD
+def executar_login():
+    print("---- Seja bem-vindo a tela de login! ----")
+    login()
+
+def login():
+    email = str(input("Seu email: "))
+    senha = input("Digite sua senha: ")
+
+    if (email == "luanmarcos03@hotmail.com" and senha == "123"):
+        print("-- Login realizado com sucesso!!! --")
+        # vai pro menu
+    else: 
+        print("Erro: Dados incorretos, digite novamente.")
+=======
 from res_create import *
 
 def login(caminho_json):
@@ -29,3 +44,4 @@ def login(caminho_json):
                 print("----------------------------\nErro: Senha inválida.")
         else:
             print("----------------------------\nErro: Email não cadastrado.")
+>>>>>>> 3c285407bfe2d943bd16bf0a89f9e09d63e6bf15
