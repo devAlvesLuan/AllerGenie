@@ -1,6 +1,7 @@
 #Bibliotecas
 import keyboard
-from cliente_create import *
+from res_create import *
+
 
 def main():
     print('================================================================\n                     Bem vindo ao AllerGenie\n================================================================')
@@ -59,11 +60,9 @@ while execucao_dois == True:
         #Se a primeira escolha foi empresa
         if tecla == '1':
             print("Realizando o cadastro de empresa")
-            
         #Se a primeira escolha foi cliente
         elif tecla == '2':
-            print("Realizando o cadastro de cliente")
-            client_create()
+            print("IRealizando o cadastro de cliente")
 
         execucao_dois = False
     elif tecla_log_cad == 3:

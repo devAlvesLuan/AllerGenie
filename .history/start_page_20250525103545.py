@@ -1,5 +1,6 @@
 #Bibliotecas
 import keyboard
+from res_create import *
 from cliente_create import *
 
 def main():

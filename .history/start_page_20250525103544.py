@@ -1,5 +1,6 @@
 #Bibliotecas
 import keyboard
+from res_create import *
 from cliente_create import *
 
 def main():
@@ -59,7 +60,6 @@ while execucao_dois == True:
         #Se a primeira escolha foi empresa
         if tecla == '1':
             print("Realizando o cadastro de empresa")
-            
         #Se a primeira escolha foi cliente
         elif tecla == '2':
             print("Realizando o cadastro de cliente")

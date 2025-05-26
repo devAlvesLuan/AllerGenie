@@ -1,0 +1,44 @@
+[
+    {
+        "nome_restaurante": "Pizzaria da Vó",
+        "cnpj": "12345678901234",
+        "email": "vo@pizza.com",
+        "senha": "segredo123",
+        "id": 1
+    },
+    {
+        "nome_restaurante": "Pizzaria da Vó",
+        "cnpj": "12345678901234",
+        "email": "vo@pizza.com",
+        "senha": "segredo123",
+        "id": 2
+    },
+    {
+        "nome_restaurante": "oioi",
+        "cnpj": "12341235151",
+        "email": "voaaa@pizza.com",
+        "senha": "segredo1232",
+        "id": 3
+    },
+    {
+        "nome_restaurante": "oioi",
+        "cnpj": "12341235151",
+        "email": "voaaa@pizza.com",
+        "senha": "segredo1232",
+        "id": 3
+    },
+    {
+        "nome_restaurante": "oioi",
+        "cnpj": "12341235151",
+        "email": "voaaa@pizza.com",
+        "senha": "segredo1232",
+        "id": 4
+    },
+    {
+        "nome_restaurante": "oioi",
+        "cnpj": "12341235151",
+        "email": "voaaa@pizza.com",
+        "senha": "segredo1232",
+        "id": 4
+    }
+]
