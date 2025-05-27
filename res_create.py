@@ -2,6 +2,7 @@ import json
 import os
 import keyboard
 import hashlib
+import pwinput
 
 def criptografador(palavra_passe):
     return hashlib.sha256(palavra_passe.encode()).hexdigest()
@@ -43,7 +44,11 @@ def res_create():
             print('Erro: O nome do restaurante não pode estar vazio.')
             return False
 
-        if opc:     
+        if opc:
+            for usuario in dados:
+                if usuario.get('cnpj') == cnpj:
+                    print('Erro: CNPJ já cadastrado. Remova o CNPJ de sua conta anterior para adicioná-lo ao novo cadastro.')
+                    return False 
             if not cnpj.isdigit(): #Verifica se, ainda que String, os caractéres inseridos são números
                 print('Erro: Caractére utilizado não é valido')
                 return False
@@ -53,10 +58,6 @@ def res_create():
             elif len(cnpj) != 14: #Verifica o número de letras do CNPJ
                 print('Erro: Número de caractéres está incorreto')
                 return False
-            for usuario in dados:
-                if usuario.get('cnpj') == cnpj:
-                    print('Erro: CNPJ já cadastrado. Remova o CNPJ de sua conta anterior para adicioná-lo ao novo cadastro.')
-                    return False
 
         dominios_val = ['gmail', 'hotmail', 'outlook', 'yahoo'] #Lista de domínios válidos
         encontrado = False #Checador de presença de dominio
@@ -64,25 +65,30 @@ def res_create():
             if dominio in email: #Verifica se o elemento está na variável
                 encontrado = True
                 break
-        if email != str(email): #Verifica se o dado inserido é válido
-            print('Erro: O tipo de dado inserido é inválido. Utilize apenas Strings para o nome do restaurante.')
-            return False
-        elif '@' not in email or not email.endswith('.com'): #Verifica se o formato de emails está sendo seguido
-            print('Erro: Insira um formato de email válido.')
-            return False
-        elif not encontrado: #Caso não possua dominio valido
-            print('Erro: Insira um dominio válido.(gmail, hotmail, yahoo ou outlook)')
-            return False
+            
         for usuario in dados:
             if usuario.get('email') == email:
                 print('Erro: Email já cadastrado.')
                 return False
+        if email == '' or len(email.strip()) == 0: #Verifica se o email está vázio
+            print('Erro: Email não pode estar vázio.')
+            return False
+        elif '@' not in email or not email.endswith('.com'): #Verifica se o formato de emails está sendo seguido
+            print('Erro: Insira um formato de email válido.')
+            return False
+        elif not encontrado: #Caso não possua domínio valido
+            print('Erro: Insira um dominio válido.(gmail, hotmail, yahoo ou outlook)')
+            return False
+
         
         contador_num = 0
         for caractere in senha_1:
             if caractere.isdigit():
                 contador_num += 1
-        if len(senha_1) < 10: #Verifica tamanho da senha
+        if senha_1 == '' or len(senha_1.strip()) == 0: #Verifica se a senha foi preenchida ou não
+            print('Erro: Senha não pode estar vázia')
+            return False
+        elif len(senha_1) < 10: #Verifica tamanho da senha
             print('Erro: Senha deve conter no mínimo 10 caractéres.')
             return False
         elif senha_1.lower() == senha_1: #Verifica se a senha usou apenas letras minúsculas
@@ -90,9 +96,6 @@ def res_create():
             return False
         elif senha_1 != senha_2: #Verifica se a primeira inserção da senha é igual a segunda
             print('Erro: Senha não pode ser diferente da confirmação da senha.')
-            return False
-        elif senha_1 == '' or len(senha_1.strip()) == 0: #Verifica se a senha foi preenchida ou não
-            print('Erro: Senha não pode estar vázia')
             return False
         if contador_num < 2:
             print('Erro: Senha deve conter no mínimo 2 dígitos')
@@ -128,12 +131,12 @@ def res_create():
                     print('Erro: Inserção inválida')
 
         if cnpj_opc: #Checa se o usuário quer inserir CNPJ ou não
-            cnpj = input('----------------------------\n  insira seu CNPJ:')
+            cnpj = input('----------------------------\n  Insira seu CNPJ:')
         else:
             cnpj = 'Não cadastrado.'
-        email_emp = input('----------------------------\n  Insira seu email (Exemplo: Cleyton@gmail.com):')
-        senha_emp = input('----------------------------\n  insira sua senha (Ela deve incluir pelo menos 10 caractéres, uma letra maiúscula e dois número):')
-        confirm_senha = input('----------------------------\n  Insira sua senha novamente:', mask = '*')
+        email_emp = input('----------------------------\n  Insira seu email (Exemplo: cleyton@gmail.com):').lower().strip()
+        senha_emp = pwinput.pwinput(prompt='----------------------------\n  Insira sua senha (Ela deve incluir pelo menos 10 caractéres, uma letra maiúscula e dois número):', mask = '*')
+        confirm_senha = pwinput.pwinput(prompt='----------------------------\n  Insira sua senha novamente:', mask = '*')
 
         if validador(nome_emp, cnpj_opc, cnpj, email_emp, senha_emp, confirm_senha): #Checa se todos os valores insiredos são válidos
             print('Cadastro realizado com sucesso.')

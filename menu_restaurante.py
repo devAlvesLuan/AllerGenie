@@ -1,12 +1,11 @@
 import json
 banco_dados = []
-id_usuario = None
-caminho = 'clientes.json'
+caminho = 'restaurantes.json'
  
-def menu_cliente():
+def menu_empresa():
     def apagar_conta(usuario_encontrado):
-        id_usuario = usuario_encontrado.get('id')
-
+        
+        id_usuario = usuario_encontrado.get('id_usuario')
         exc = True
         print("Deseja continuar? ")
         print("\n1. Sim \n2. Não")
@@ -23,12 +22,13 @@ def menu_cliente():
             
                     if confir == 'Confirmo':
                         for usuario in banco_dados:
-                            if usuario.get('id') == id_usuario:
+                            if usuario.get('id_usuario') == id_usuario:
                                 banco_dados.remove(usuario)
                                 break
                         
                         salvar_dados(banco_dados)
                         exc = False
+                        print("Conta ap")
                 else:
                     print("Tente novamente")
                     exc = True
@@ -40,8 +40,7 @@ def menu_cliente():
             editar_perfil(usuario_encontrado)
             
         
-        
-
+    #|-------------------------- atualização -------------------------------------------|
     def atualizar_dados():
         with open(caminho, 'r', encoding='utf-8') as file:
             return json.load(file)
@@ -52,23 +51,25 @@ def menu_cliente():
 
     def atualizar_usuario(usuario_encontrado, campo, dados_novos):
         banco_dados = atualizar_dados()
-        id_usuario = usuario_encontrado.get('id')
+        id_usuario = usuario_encontrado.get('id_usuario')
         
         for usuario in banco_dados:
-            if usuario.get('id') == id_usuario:
+            if usuario.get('id_usuario') == id_usuario:
                 usuario[campo] = dados_novos
                 usuario_encontrado[campo] = dados_novos
                 salvar_dados(banco_dados)
                 break  
 
         return banco_dados
+    #|-----------------------------------------------------------------------------------|
 
 
     def atualizar_nome(usuario_encontrado):
-        dados_novos = input("Atualize seu nome: ")
+        dados_novos = input("Atualize o nome do restaurante: ")
         
         atualizar_usuario(usuario_encontrado, 'nome', dados_novos)
         mostrar_perfil(usuario_encontrado)
+
 
 
     def atualizar_senha(usuario_encontrado):
@@ -77,56 +78,68 @@ def menu_cliente():
         atualizar_usuario(usuario_encontrado, 'senha', dados_novos)
         mostrar_perfil(usuario_encontrado)
         
+
+    def adicionar_cidade(usuario_encontrado):
+        id_usuario = usuario_encontrado.get('id_usuario')
+        if 'cidade' not in usuario_encontrado:
+            usuario_encontrado['cidade'] = ""
         
-    def adicionar_alergia(usuario_encontrado):
-        
-        if 'alergia' not in usuario_encontrado:
-            usuario_encontrado['alegia'] = ""
-        
-        dados_novos = input("Digite sua(s) alergia(s): ")
-        usuario_encontrado['alergia'] = dados_novos
+        dados_novos = input("Digite a que seu restaurante reside: ")
+        usuario_encontrado['cidade'] = dados_novos
         banco_dados = atualizar_dados()
         
         for usuario in banco_dados:
             if usuario.get('id') == id_usuario:
-                usuario['alergia'] = usuario_encontrado['alergia'] 
-                salvar_dados(banco_dados)
+                usuario['cidade'] = usuario_encontrado['cidade'] 
+                
                 break 
-            
-        mostrar_perfil(usuario_encontrado)
         
+        salvar_dados(banco_dados)
+        mostrar_perfil(usuario_encontrado)
+
     def adicionar_palavraChave(usuario_encontrado):
+        id_usuario = usuario_encontrado.get('id_usuario')
 
         if 'palavra-chave' not in usuario_encontrado:
             usuario_encontrado['palavra-chave'] = ""
 
-        dados_novos = input("Digite a cidade onde seu restaurante reside: ")
-        atualizar_usuario(usuario_encontrado, 'palavra-chave', dados_novos)
+        dados_novos = input("Digite palavras-chaves referente ao seu restaurante: ")
+        usuario_encontrado['palavra-chave'] = dados_novos
+        banco_dados = atualizar_dados()
 
+        for usuario in banco_dados:
+            if usuario.get('id') == id_usuario:
+                usuario['palavra-chave'] = usuario_encontrado['palavra-chave'] 
+                salvar_dados(banco_dados)
+                break 
 
-        print("Palavras-chaves adicionadas com sucesso!")
         mostrar_perfil(usuario_encontrado)
 
-    def adicionar_cidade(usuario_encontrado):
+    def adicionar_descricao(usuario_encontrado):
+        id_usuario = usuario_encontrado.get('id_usuario')
 
-        if 'cidade' not in usuario_encontrado:
-            usuario_encontrado['cidade'] = ""
+        if 'descricao' not in usuario_encontrado:
+            usuario_encontrado['descricao'] = ""
 
-        dados_novos = input("Digite a cidade onde seu restaurante reside: ")
-        atualizar_usuario(usuario_encontrado, 'cidade', dados_novos)
+        dados_novos = input("Conte um pouco sobre seu restaurante: ")
+        usuario_encontrado['descricao'] = dados_novos
+        banco_dados = atualizar_dados()
 
-        print("Cidade adicionada com sucesso!")
+        for usuario in banco_dados:
+            if usuario.get('id') == id_usuario:
+                usuario['descricao'] = usuario_encontrado['descricao'] 
+                salvar_dados(banco_dados)
+                break 
+
         mostrar_perfil(usuario_encontrado)
-            
-        salvar_dados(banco_dados)
-        mostrar_perfil(usuario_encontrado)
+
 
 
     def editar_perfil(usuario_encontrado):
         print("------ EDIÇÃO DE PERFIL ------")
-        
+
         print("Deseja modificar qual informação: ")
-        print("\n1. Nome \n2. Senha \n3. Alergias \n4. Cidade \n5. Apagar conta \n6. Sair")
+        print("\n1. Nome \n2. Senha \n3. Cidade \n4. Palavras-Chaves \n5. Descrição  \n6. Apagar Conta \n7. Sair")
         opc = int(input("> "))
 
         if opc == 1:
@@ -134,37 +147,37 @@ def menu_cliente():
         elif opc == 2:
             atualizar_senha(usuario_encontrado)
         elif opc == 3:
-            adicionar_alergia(usuario_encontrado)
-        elif opc == 4:
             adicionar_cidade(usuario_encontrado)
+        elif opc == 4:
+            adicionar_palavraChave(usuario_encontrado)
         elif opc == 5:
-            apagar_conta(usuario_encontrado)
+            adicionar_descricao(usuario_encontrado)
         elif opc == 6:
+            apagar_conta(usuario_encontrado)
+        elif opc == 7:
             print("Saindo . . .")
             menu(usuario_encontrado)
             return
         else:
             print("Opção inválida.")
 
-        
-
     def mostrar_perfil(usuario_encontrado):
-        
         execucao = True
         print("------ PERFIL ------")
-        print("\nNome: ", usuario_encontrado.get('nome'))
+        print("\nRestaurante: ", usuario_encontrado.get('nome'))
         print("Email: ", usuario_encontrado.get('email'))
-        print("Alergias: ", usuario_encontrado.get('alergia'))
+        print("CNP-J: ", usuario_encontrado.get('cnpj'))
         print("Cidade: ", usuario_encontrado.get('cidade'))
-        
-        
+        print("Palavras-Chaves: ", usuario_encontrado.get('palavra-chave'))
+        print("Descrição: ", usuario_encontrado.get('descricao'))
+
         while execucao:
             print("\n1. Editar Perfil \n2. Sair")
-            opc = int(input(""))
-            
+            opc = int(input("> "))
+
             if opc not in [1,2]:
                 print("Erro: opção inválida.")
-                
+
             if opc == 1:
                 print("REALIZANDO EDIÇÃO")
                 editar_perfil(usuario_encontrado)
@@ -175,18 +188,19 @@ def menu_cliente():
                 execucao = False
 
     def menu(usuario_encontrado):
+
         execucao = True
         while execucao:
             print(f"Bem vindo ao AllerGenie, {usuario_encontrado.get('nome')}!\n")
-            print("Pressione o número referente a alguma dessas abas: ")
-            print("1. Perfil \n2. Pesquisa \n3. Biblioteca\n")
+            print("Pressione o número referente a algum dessas abas: ")
+            print("1. Perfil \n2. Cárdapio")
             tecla = int(input("> "))
 
-            if tecla not in [1, 2, 3]:
+            if tecla not in [1, 2]:
                 print("\nErro: Pressione um número válido\n")
                 continue
 
             if tecla == 1:
                 mostrar_perfil(usuario_encontrado)
-                execucao = False  
+                execucao = False
                 break
