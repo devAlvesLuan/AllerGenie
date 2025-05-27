@@ -1,4 +1,5 @@
-from res_create import *
+from menu_cliente import *
+from menu_restaurante import *
 
 def login(caminho_json):
     print("================================================================\n          ---- Seja bem-vindo a tela de login! ----\n================================================================")
@@ -21,10 +22,13 @@ def login(caminho_json):
                 break
 
         if usuario_encontrado:
-            senha = input('----------------------------\nInsira sua senha:')
-            if usuario.get('senha') == criptografador(senha):
+            senha = pwinput.pwinput(prompt='----------------------------\nInsira sua senha: ', mask='*')
+            if usuario_encontrado.get('senha') == criptografador(senha):
                 print("-- Login realizado com sucesso! --")
-                executando = False
+                if 'cnpj' not in usuario_encontrado:
+                    menu_cliente(usuario_encontrado)
+                else:
+                    menu_empresa(usuario_encontrado)
             else:
                 print("----------------------------\nErro: Senha inválida.")
         else:

@@ -1,7 +1,6 @@
 import os
 import json
 
-
 class CardapioRestaurante:
     def __init__(self, prato, descricao, preco, palavra_chave): #Adiciona atributos às instâncias
         self.prato = prato
@@ -17,6 +16,9 @@ class CardapioRestaurante:
             "preco": self.preco
         }
 
+def funcao_menu(usuario_encontrado):
+    from menu_restaurante import menu_empresa
+    menu_empresa(usuario_encontrado)
 
 def add_prato(usuario_encontrado):
     nome_restaurante = usuario_encontrado.get('nome')
@@ -49,18 +51,21 @@ def add_prato(usuario_encontrado):
     cardapio(usuario_encontrado)
 
 
-
 def cardapio(usuario_encontrado):
     nome_restaurante = usuario_encontrado.get('nome')
-        
+
+    print("------ CARDÁPIO ------")
     print(f"Bem vindo a criação de cardápio, {nome_restaurante}!")
     print("Digite para qual aba deseja acessar: ")
-    print("\n1. Adicionar prato \n2. Olhar cardapio")
+    print("\n1. Adicionar prato \n2. Olhar cardapio\n 3. Sair")
     tecla = int(input("> "))
-    
-    if tecla == 1:
-        add_prato(usuario_encontrado)
-             
-    elif tecla == 2:
-        print("Em desenvolvimento . . .")
-        
+    while True:
+        if tecla == 1:
+            add_prato(usuario_encontrado)
+        elif tecla == 2:
+            print("Em desenvolvimento . . .")
+        elif tecla == 3:
+            print('Saindo . . .')
+            funcao_menu(usuario_encontrado)
+        else:
+            print("Inserção inválida.")

@@ -1,43 +1,51 @@
 import json
+import pwinput
+from validacoes import *
+from start_page import main
+from cardapio_rest import cardapio
+
 banco_dados = []
 caminho = 'restaurantes.json'
- 
 
 def apagar_conta(usuario_encontrado):
     
-    id_usuario = usuario_encontrado.get('id_usuario')
+    id_usuario = usuario_encontrado.get('id')
     exc = True
     print("Deseja continuar? ")
     print("\n1. Sim \n2. Não")
     opc = int(input("> "))
     
     if opc == 1:
-        email = input("Digite seu Email: ")
-        senha = input("Digite sua Senha: ")
-    
         while exc:
-            banco_dados = atualizar_dados()
-            if usuario_encontrado.get('email') == email and usuario_encontrado.get('senha') == senha:
-                confir = input("Escreva 'Confirmo' para confirmar a exclusão da sua conta: ")
-        
-                if confir == 'Confirmo':
-                    for usuario in banco_dados:
-                        if usuario.get('id_usuario') == id_usuario:
-                            banco_dados.remove(usuario)
-                            break
-                    
-                    salvar_dados(banco_dados)
-                    exc = False
-                    print("Conta ap")
+            email = input("Digite seu email (Digite 2 para voltar para edição de perfil): ")
+            if email != '2':
+                senha = pwinput.pwinput(prompt='Digite sua senha: ', mask = '*')
+                banco_dados = atualizar_dados()
+                if usuario_encontrado.get('email') == email and usuario_encontrado.get('senha') == criptografador(senha):
+                    confir = input("Escreva 'Confirmo' para confirmar a exclusão da sua conta: ").lower().strip()
+            
+                    if confir == 'confirmo':
+                        for usuario in banco_dados:
+                            if usuario.get('id') == id_usuario:
+                                banco_dados.remove(usuario)
+                                break
+                        
+                        salvar_dados(banco_dados)
+                        main()
+                    else:
+                        print('Inserção inválida')
+                else:
+                    print("Tente novamente")
+                    exc = True
+            elif email == '2':
+                editar_perfil(usuario_encontrado)
             else:
-                print("Tente novamente")
-                exc = True
+                print('Inserção inválida')
     elif opc == 2:
-        print("Voltando para o perfil. . .")
-        mostrar_perfil(usuario_encontrado)
-    else: 
-        print("Inválido")
+        print("Voltando para a edição de perfil. . .")
         editar_perfil(usuario_encontrado)
+    else: 
+        print("Inserção inválida")
         
     
 #|------------------------ atualização no usuario e JSON -----------------------------|
@@ -51,10 +59,10 @@ def salvar_dados(banco_dados):
 
 def atualizar_usuario(usuario_encontrado, campo, dados_novos):
     banco_dados = atualizar_dados()
-    id_usuario = usuario_encontrado.get('id_usuario')
+    id_usuario = usuario_encontrado.get('id')
     
     for usuario in banco_dados:
-        if usuario.get('id_usuario') == id_usuario:
+        if usuario.get('id') == id_usuario:
             usuario[campo] = dados_novos
             usuario_encontrado[campo] = dados_novos
             salvar_dados(banco_dados)
@@ -65,7 +73,13 @@ def atualizar_usuario(usuario_encontrado, campo, dados_novos):
 
 #|------------------------ atualização de dados -------------------------------------|
 def atualizar_nome(usuario_encontrado):
-    dados_novos = input("Atualize o nome do restaurante: ")
+    while True:
+        dados_novos = input("Atualize seu nome (Digite 2 para voltar): ")
+        if validador_nome(dados_novos):
+            break
+        elif dados_novos == '2':
+            print("Voltando para a edição de perfil. . .")
+            editar_perfil(usuario_encontrado)
     
     
     print("Descrição adicionada com sucesso!")
@@ -75,14 +89,33 @@ def atualizar_nome(usuario_encontrado):
     
 
 def atualizar_senha(usuario_encontrado):
-    
-    dados_novos  = input("Atualize seu senha: ")
-    atualizar_usuario(usuario_encontrado, 'senha', dados_novos)
-    print("Senha modificada com sucesso!")
-    mostrar_perfil(usuario_encontrado)
-    
-   
-    
+    atualizando = True
+    while atualizando:
+        print('Confirme que é você. (Digite 2 para voltar.)')
+        email = input("Digite seu email: ")
+        if email != '2':
+            senha = pwinput.pwinput(prompt='Digite sua senha: ', mask = '*')
+            if usuario_encontrado.get('email') == email and usuario_encontrado.get('senha') == criptografador(senha):
+                while True:
+                    dados_novos = pwinput.pwinput(prompt="Atualize sua senha (Digite 2 para voltar): ", mask = '*')
+                    if dados_novos != '2':
+                        confirmacao = pwinput.pwinput(prompt="Digite sua senha novamente: ", mask = '*')
+
+                    if validador_senha(dados_novos, confirmacao):
+                        break
+                    elif dados_novos == '2':
+                        print("Voltando para a edição de perfil. . .")
+                        editar_perfil(usuario_encontrado)
+
+                atualizar_usuario(usuario_encontrado, 'senha', criptografador(dados_novos))
+                print("Senha modificada com sucesso!")
+                mostrar_perfil(usuario_encontrado)
+            else:
+                print("Login inválido. Insira dados novamente ou retorne a edição de perfil inserindo '0'.")
+        else:
+            print("Voltando para a edição de perfil. . .")
+            editar_perfil(usuario_encontrado)
+
 
 def adicionar_cidade(usuario_encontrado):
     
@@ -117,7 +150,7 @@ def adicionar_descricao(usuario_encontrado):
         
     print("Descrição adicionada com sucesso!")
     mostrar_perfil(usuario_encontrado)
-  
+
     
     
 def editar_perfil(usuario_encontrado):
@@ -141,8 +174,7 @@ def editar_perfil(usuario_encontrado):
         apagar_conta(usuario_encontrado)
     elif opc == 7:
         print("Saindo . . .")
-        menu(usuario_encontrado)
-        return
+        menu_empresa(usuario_encontrado)
     else:
         print("Opção inválida.")
 
@@ -150,16 +182,15 @@ def editar_perfil(usuario_encontrado):
 
 
 def mostrar_perfil(usuario_encontrado):
-    alergia = usuario_encontrado.get('alergia')
     
     execucao = True
     print("------ PERFIL ------")
     print("\nRestaurante: ", usuario_encontrado.get('nome'))
     print("Email: ", usuario_encontrado.get('email'))
-    print("CNP-J: ", usuario_encontrado.get('cnpj'))
-    print("Cidade: ", usuario_encontrado.get('cidade', ''))
-    print("Palavras-Chaves: ", usuario_encontrado.get('palavra-chave', ''))
-    print("Descrição: ", usuario_encontrado.get('descricao', ''))
+    print("CNPJ: ", usuario_encontrado.get('cnpj'))
+    print("Cidade: ", usuario_encontrado.get('cidade', 'Não inserido.'))
+    print("Palavras-Chaves: ", usuario_encontrado.get('palavra-chave', 'Não inserido.'))
+    print("Descrição: ", usuario_encontrado.get('descricao', 'Não inserido.'))
     
     while execucao:
         print("\n1. Editar Perfil \n2. Sair")
@@ -174,30 +205,27 @@ def mostrar_perfil(usuario_encontrado):
             execucao = False
         elif opc == 2:
             print("SAINDO. . .")
-            menu(usuario_encontrado)
+            menu_empresa(usuario_encontrado)
             execucao = False
 
 
 
-def menu(usuario_encontrado):
+def menu_empresa(usuario_encontrado):
     
     execucao = True
     while execucao:
         print(f"Bem vindo ao AllerGenie, {usuario_encontrado.get('nome')}!\n")
         print("Pressione o número referente a algum dessas abas: ")
         print("1. Perfil \n2. Cárdapio")
-        tecla = int(input("> "))
+        tecla = str(input("> "))
 
-        if tecla not in [1, 2]:
+        if tecla not in ['1', '2']:
             print("\nErro: Pressione um número válido\n")
             continue
 
-        if tecla == 1:
+        if tecla == '1':
             mostrar_perfil(usuario_encontrado)
             execucao = False  
             break
-        elif tecla == 2:
-            print("")
-            #cardapio()
-            
-
+        elif tecla == '2':
+            cardapio(usuario_encontrado)
