@@ -23,12 +23,12 @@ def login(caminho_json):
                 break
 
         if usuario_encontrado:
-            senha = input('----------------------------\nInsira sua senha:')
+            senha = input('----------------------------\nInsira sua senha:', mask = '*')
             if usuario.get('senha') == criptografador(senha):
                 print("-- Login realizado com sucesso! --")
-    
+               
+
                 executando = False
-                return menu(usuario_encontrado)
             else:
                 print("----------------------------\nErro: Senha inválida.")
         else:

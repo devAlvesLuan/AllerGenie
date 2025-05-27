@@ -1,3 +1,4 @@
+import os
 import json
 banco_dados = []
 id_usuario = None
@@ -24,7 +25,7 @@ def apagar_conta(usuario_encontrado):
                 if confir == 'Confirmo':
                     for usuario in banco_dados:
                         if usuario.get('id') == id_usuario:
-                            banco_dados.remove(usuario)
+                            banco_dados.remove(u)
                             break
                     
                     salvar_dados(banco_dados)

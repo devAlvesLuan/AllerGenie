@@ -1,6 +1,7 @@
 import json
 import os
 import keyboard
+import pwinput
 import hashlib
 
 def criptografador(palavra_passe):
@@ -132,8 +133,8 @@ def res_create():
         else:
             cnpj = 'Não cadastrado.'
         email_emp = input('----------------------------\n  Insira seu email (Exemplo: Cleyton@gmail.com):')
-        senha_emp = input('----------------------------\n  insira sua senha (Ela deve incluir pelo menos 10 caractéres, uma letra maiúscula e dois número):')
-        confirm_senha = input('----------------------------\n  Insira sua senha novamente:', mask = '*')
+        senha_emp = pwinput.pwinput(prompt='----------------------------\n  insira sua senha (Ela deve incluir pelo menos 10 caractéres, uma letra maiúscula e dois número):', mask = '*')
+        confirm_senha = pwinput.pwinput(prompt='----------------------------\n  Insira sua senha novamente:', mask = '*')
 
         if validador(nome_emp, cnpj_opc, cnpj, email_emp, senha_emp, confirm_senha): #Checa se todos os valores insiredos são válidos
             print('Cadastro realizado com sucesso.')

@@ -1,3 +1,4 @@
+import os
 import json
 banco_dados = []
 id_usuario = None
@@ -22,9 +23,9 @@ def apagar_conta(usuario_encontrado):
                 confir = input("Escreva 'Confirmo' para confirmar a exclusão da sua conta: ")
         
                 if confir == 'Confirmo':
-                    for usuario in banco_dados:
-                        if usuario.get('id') == id_usuario:
-                            banco_dados.remove(usuario)
+                    for u in banco_dados:
+                        if u.get('id_uo') == id_usuario:
+                            banco_dados.remove(u)
                             break
                     
                     salvar_dados(banco_dados)

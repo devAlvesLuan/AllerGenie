@@ -14,7 +14,6 @@ def main():
                 print(f'----------------------------\n  Realizando cadastro de {usuario}...')
                 modulo()
                 login(repositorio_json)
-                menu()
             elif operacao == '0':
                 print('----------------------------\n  Saindo...')
                 exe = False

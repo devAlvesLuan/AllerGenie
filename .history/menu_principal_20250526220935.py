@@ -1,3 +1,4 @@
+import os
 import json
 banco_dados = []
 id_usuario = None

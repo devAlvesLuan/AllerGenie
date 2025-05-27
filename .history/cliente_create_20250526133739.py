@@ -86,7 +86,7 @@ def cliente_create():
         nome_cliente = input('----------------------------\n  Insira o nome do cliente:')
         email_cliente = input('----------------------------\n  Insira seu email (Exemplo: Cleyton@gmail.com):')
         senha_cliente = input('----------------------------\n  insira sua senha (Ela deve incluir pelo menos 10 caractéres, uma letra maiúscula e dois número):')
-        confirm_senha = input('----------------------------\n  Insira sua senha novamente:')
+        confirm_senha = input('----------------------------\n  Insira sua senha novamente:'
 
         if validador(nome_cliente, email_cliente, senha_cliente, confirm_senha): #Checa se todos os valores insiredos são válidos
             print('-- Cadastro realizado com sucesso! --')

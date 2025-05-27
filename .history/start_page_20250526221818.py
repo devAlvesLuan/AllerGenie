@@ -13,8 +13,7 @@ def main():
             elif operacao == '2':
                 print(f'----------------------------\n  Realizando cadastro de {usuario}...')
                 modulo()
-                login(repositorio_json)
-                menu()
+                menu_cliente()
             elif operacao == '0':
                 print('----------------------------\n  Saindo...')
                 exe = False

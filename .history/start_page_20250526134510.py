@@ -1,9 +1,9 @@
 from login import *
 from cliente_create import *
-from menu_cliente import *
+from menu_principal import *
 
 def main():
-    def opcoes_cad_login(exe, usuario,repositorio_json, modulo):
+    def opcoes_cad_login(exe, usuario,repositorio_json):
         while exe:
             operacao = str(input('----------------------------\n  Selecione uma das seguintes opções:\n1. Login \n2. Cadastro\n0. Encerrar\n'))
             if operacao == '1': #Checa qual tecla foi pressionada e para onde o código deve seguir
@@ -12,7 +12,6 @@ def main():
                 menu()
             elif operacao == '2':
                 print(f'----------------------------\n  Realizando cadastro de {usuario}...')
-                modulo()
                 login(repositorio_json)
                 menu()
             elif operacao == '0':

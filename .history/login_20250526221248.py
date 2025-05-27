@@ -1,5 +1,5 @@
 from res_create import *
-from menu_cliente import menu
+from menu_cliente 
 
 def login(caminho_json):
     print("================================================================\n          ---- Seja bem-vindo a tela de login! ----\n================================================================")
@@ -23,12 +23,10 @@ def login(caminho_json):
                 break
 
         if usuario_encontrado:
-            senha = input('----------------------------\nInsira sua senha:')
+            senha = input('----------------------------\nInsira sua senha:', mask = '*')
             if usuario.get('senha') == criptografador(senha):
                 print("-- Login realizado com sucesso! --")
-    
                 executando = False
-                return menu(usuario_encontrado)
             else:
                 print("----------------------------\nErro: Senha inválida.")
         else:

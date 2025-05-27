@@ -1,6 +1,6 @@
 from login import *
 from cliente_create import *
-from menu_cliente import *
+from menu_pri import *
 
 def main():
     def opcoes_cad_login(exe, usuario,repositorio_json, modulo):
@@ -13,7 +13,6 @@ def main():
             elif operacao == '2':
                 print(f'----------------------------\n  Realizando cadastro de {usuario}...')
                 modulo()
-                login(repositorio_json)
                 menu()
             elif operacao == '0':
                 print('----------------------------\n  Saindo...')

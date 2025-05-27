@@ -1,5 +1,6 @@
 import json
 import os
+import pwinput
 import hashlib
 
 def criptografador(palavra_passe):
@@ -16,6 +17,7 @@ class Clientes:
         self.email = email
         self.senha = senha_1
 
+gi
     def criador_dic(self): #Converte todas as intâncias em dicionarios
         return {
             "nome": self.nome_cliente,
@@ -85,8 +87,8 @@ def cliente_create():
     while execucao_cadastro: #Executado enquanto o código não encontrar um cadastro válido
         nome_cliente = input('----------------------------\n  Insira o nome do cliente:')
         email_cliente = input('----------------------------\n  Insira seu email (Exemplo: Cleyton@gmail.com):')
-        senha_cliente = input('----------------------------\n  insira sua senha (Ela deve incluir pelo menos 10 caractéres, uma letra maiúscula e dois número):')
-        confirm_senha = input('----------------------------\n  Insira sua senha novamente:')
+        senha_cliente = pwinput.pwinput(prompt='----------------------------\n  insira sua senha (Ela deve incluir pelo menos 10 caractéres, uma letra maiúscula e dois número):', mask = '*')
+        confirm_senha = pwinput.pwinput(prompt='----------------------------\n  Insira sua senha novamente:', mask = '*')
 
         if validador(nome_cliente, email_cliente, senha_cliente, confirm_senha): #Checa se todos os valores insiredos são válidos
             print('-- Cadastro realizado com sucesso! --')
