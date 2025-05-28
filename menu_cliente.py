@@ -334,9 +334,7 @@ def pesquisa_geral(pesquisa, campo):
             print("----------------------------------------------------------")
     else:
         print("\nNada encontrado . . .")
-        
-    pesquisa_cliente()
-    return resultados
+
 
 
 def pesquisa_prato(pesquisa):
@@ -371,9 +369,7 @@ def pesquisa_prato(pesquisa):
             print("----------------------------------------------------------")
     else:
         print("Nada encontrado . . .")
-        
-    pesquisa_cliente()
-    return resultados
+       
 
 
 def pesquisa_cliente(usuario_encontrado):
@@ -388,23 +384,27 @@ def pesquisa_cliente(usuario_encontrado):
     print("Como deseja pesquisar?")
     print("\n1. Palavras-chave \n2. Pratos \n3. Localização \n4. Restaurantes \n5. Sair")
     opc = str(input("> "))
-    
+
     if opc == '1':
         print("Digite as palavras: ")
         pesquisa = input("> ")
         pesquisa_geral(pesquisa, 'palavra-chave')
+        pesquisa_cliente(usuario_encontrado)
     elif opc == '2':
         print("Digite o que deseja: ")
         pesquisa = input("> ")
         pesquisa_prato(pesquisa)
+        pesquisa_cliente(usuario_encontrado)
     elif opc == '3':
         print("Digite a localização: ")
         pesquisa = input("> ")
         pesquisa_geral(pesquisa, 'cidade')
+        pesquisa_cliente(usuario_encontrado)
     elif opc == '4':
         print("Digite o restaurante: ")
         pesquisa = input("> ")
         pesquisa_geral(pesquisa, 'nome')
+        pesquisa_cliente(usuario_encontrado)
     elif opc == '5':
         print('Saindo . . .')
         menu_cliente(usuario_encontrado)

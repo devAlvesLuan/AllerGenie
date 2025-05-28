@@ -1,5 +1,5 @@
 {
-     "Boteco do Byte": [
+    "Boteco do Byte": [
         {
             "nome-prato": "Byte Burguer",
             "descricao": "Hambúrguer artesanal com queijo cheddar e molho especial.",
@@ -67,6 +67,14 @@
             "descricao": "Tapioca com recheio de coco ralado e leite condensado.",
             "palavras-chave": "tapioca, doce, coco, sem nozes",
             "preco": 16.0
+        }
+    ],
+    "Carlos Batista Empresa": [
+        {
+            "nome-prato": "Sorvete",
+            "descricao": "Bolas de sorvete com frutas cristalizadas",
+            "palavras-chave": "sorvete, frutas, frios, sem lactose",
+            "preco": 15.0
         }
     ]
 }
