@@ -1,0 +1,62 @@
+[
+    {
+        "nome": "a",
+        "cnpj": "Não cadastrado.",
+        "email": "a@gmail.com",
+        "senha": "51ff20a57253f7f0ee3a9bffe86a86a2141c716b2f554b2bf6429df50e538c13",
+        "id": "2322184009456",
+        "palavra-chave": "lingua",
+        "descricao": "linguini melhores linguinis coisa linda de linguini ui",
+        "cidade": "Camaragibe, Boa Viagem, Barro, Macaxeira, Tancredo"
+    }
+     {
+        "nome": "Boteco do Byte",
+        "cnpj": "Não cadastrado.",
+        "email": "byte@outlook.com",
+        "senha": "9b74c9897bac770ffc029102a200c5de7dbe3e3a5e6d7a9949e18f302c7edb5e",
+        "id": "8427348571234",
+        "palavra-chave": "tecnologia, petisco, cerveja",
+        "descricao": "Petiscos crocantes, ambiente nerd e boa música. O point do programador faminto!",
+        "cidade": "Recife, Olinda, Jaboatão"
+    },
+    {
+        "nome": "Sabor & Código",
+        "cnpj": "Não cadastrado.",
+        "email": "saborecodigo@gmail.com",
+        "senha": "bbf2f41b7f1c459b8d3533a4dfc22234c4d9cc7bcfb258b91b44cf5fdcdb7202",
+        "id": "9832746923129",
+        "palavra-chave": "refeição rápida, almoço tech, gourmet",
+        "descricao": "Onde cada prato é uma linha de código bem executada. Gastronomia para devs!",
+        "cidade": "Boa Viagem, Casa Forte, Madalena"
+    },
+    {
+        "nome": "Cantina da Nonna Maria",
+        "cnpj": "Não cadastrado.",
+        "email": "nonna@cantina.com",
+        "senha": "1d654b9fbd80b66222fa6d84c274fa33b8629488a054f3dc8fba8f1fc28fc6f9",
+        "id": "3827456123001",
+        "palavra-chave": "italiano, massa, caseiro",
+        "descricao": "Receitas italianas de família que aquecem o coração (e o estômago).",
+        "cidade": "Barro, Imbiribeira, Pina"
+    },
+    {
+        "nome": "Veg & Vibes",
+        "cnpj": "Não cadastrado.",
+        "email": "contato@vegevibes.com",
+        "senha": "4a8a08f09d37b73795649038408b5f33b6ed41b4e3a003443de6df01d0f7b53c",
+        "id": "1092837465521",
+        "palavra-chave": "vegano, saudável, orgânico",
+        "descricao": "Comida leve, orgânica e cheia de energia boa. Vem sentir as vibes!",
+        "cidade": "Graças, Poço da Panela, Espinheiro"
+    },
+    {
+        "nome": "Tapiocaria Raiz",
+        "cnpj": "Não cadastrado.",
+        "email": "raiz.tapioca@yahoo.com",
+        "senha": "a0347d3178f9a9c3164c4fc29b8483cf75f18b02c31f685343b2bb3a77c6f3ee",
+        "id": "5566378902317",
+        "palavra-chave": "regional, tapioca, nordeste",
+        "descricao": "Tapiocas artesanais recheadas de história e sabor nordestino!",
+        "cidade": "Camaragibe, Várzea, Afogados"
+    }
+]
