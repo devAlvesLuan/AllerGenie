@@ -15,7 +15,7 @@ def apagar_conta(usuario_encontrado):
     id_usuario = usuario_encontrado.get('id')
 
     exc = True
-    print("Deseja continuar? ")
+    print("Deseja continuar e deletar sua conta? ")
     print("\n1. Sim \n2. Não")
     opc = int(input("> "))
     
@@ -26,9 +26,9 @@ def apagar_conta(usuario_encontrado):
                 senha = pwinput.pwinput(prompt='Digite sua senha: ', mask = '*')
                 banco_dados = atualizar_dados()
                 if usuario_encontrado.get('email') == email and usuario_encontrado.get('senha') == criptografador(senha):
-                    confir = input("Escreva 'Confirmo' para confirmar a exclusão da sua conta: ").lower().strip()
+                    conferir = input("Escreva 'Confirmo' para confirmar a exclusão da sua conta: ").lower().strip()
             
-                    if confir == 'confirmo':
+                    if conferir == 'confirmo':
                         for usuario in banco_dados:
                             if usuario.get('id') == id_usuario:
                                 banco_dados.remove(usuario)
@@ -40,7 +40,6 @@ def apagar_conta(usuario_encontrado):
                         print('Inserção inválida')
                 else:
                     print("Tente novamente")
-                    exc = True
             elif email == '2':
                 editar_perfil(usuario_encontrado)
             else:
@@ -101,23 +100,21 @@ def atualizar_senha(usuario_encontrado):
                     dados_novos = pwinput.pwinput(prompt="Atualize sua senha (Digite 2 para voltar): ", mask = '*')
                     if dados_novos != '2':
                         confirmacao = pwinput.pwinput(prompt="Digite sua senha novamente: ", mask = '*')
-                    
-                    if validador_senha(dados_novos, confirmacao):
-                        break
+                        if validador_senha(dados_novos, confirmacao):
+                            atualizar_usuario(usuario_encontrado, 'senha', criptografador(dados_novos))
+                            print("Senha modificada com sucesso!")
+                            mostrar_perfil(usuario_encontrado)
                     elif dados_novos == '2':
                         print("Voltando para a edição de perfil. . .")
                         editar_perfil(usuario_encontrado)
                 
-                atualizar_usuario(usuario_encontrado, 'senha', criptografador(dados_novos))
-                print("Senha modificada com sucesso!")
-                mostrar_perfil(usuario_encontrado)
             else:
                 print("Login inválido. Insira dados novamente ou retorne a edição de perfil inserindo '0'.")
         elif email == '2':
             print("Voltando para a edição de perfil. . .")
             editar_perfil(usuario_encontrado)
         else:
-            print('')
+            print('Inserção inválida')
 
     
     

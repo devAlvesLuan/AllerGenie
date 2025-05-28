@@ -100,21 +100,21 @@ def atualizar_senha(usuario_encontrado):
                     dados_novos = pwinput.pwinput(prompt="Atualize sua senha (Digite 2 para voltar): ", mask = '*')
                     if dados_novos != '2':
                         confirmacao = pwinput.pwinput(prompt="Digite sua senha novamente: ", mask = '*')
-
-                    if validador_senha(dados_novos, confirmacao):
-                        break
+                        if validador_senha(dados_novos, confirmacao):
+                            atualizar_usuario(usuario_encontrado, 'senha', criptografador(dados_novos))
+                            print("Senha modificada com sucesso!")
+                            mostrar_perfil(usuario_encontrado)
                     elif dados_novos == '2':
                         print("Voltando para a edição de perfil. . .")
                         editar_perfil(usuario_encontrado)
-
-                atualizar_usuario(usuario_encontrado, 'senha', criptografador(dados_novos))
-                print("Senha modificada com sucesso!")
-                mostrar_perfil(usuario_encontrado)
+                
             else:
                 print("Login inválido. Insira dados novamente ou retorne a edição de perfil inserindo '0'.")
-        else:
+        elif email == '2':
             print("Voltando para a edição de perfil. . .")
             editar_perfil(usuario_encontrado)
+        else:
+            print('Inserção inválida')
 
 
 def adicionar_cidade(usuario_encontrado):
@@ -133,7 +133,7 @@ def adicionar_palavraChave(usuario_encontrado):
     if 'palavra-chave' not in usuario_encontrado:
         usuario_encontrado['palavra-chave'] = ""
     
-    dados_novos = input("Digite a cidade onde seu restaurante reside: ")
+    dados_novos = input("Digite a(s) palavra(s)-chave a ser(em) adicionada(s): ")
     atualizar_usuario(usuario_encontrado, 'palavra-chave', dados_novos)
     
     
