@@ -80,5 +80,40 @@ O sistema é desenvolvido em Python e armazena os dados dos usuários (clientes 
   print(hash_senha)
   ```
 
+# 📊 Fluxogramas do Projeto
+
+Este projeto possui diversos fluxogramas criados para ilustrar e organizar o fluxo de funcionalidades principais. Abaixo estão os links para acesso rápido a cada um deles no Miro:
+
+## ✅ Página Inicial
+🔗 [Acessar fluxograma](https://miro.com/app/board/uXjVI1VTWdY=/?share_link_id=363574602305)
+
+## ✅ Create Empresa
+🔗 [Acessar fluxograma](https://miro.com/app/board/uXjVI1VAO8I=/?share_link_id=41309087508)
+
+## ✅ Create Cliente
+🔗 [Acessar fluxograma](https://miro.com/app/board/uXjVI0UP6_A=/?share_link_id=73213188831)
+
+## ✅ Login
+🔗 [Acessar fluxograma](https://miro.com/app/board/uXjVIvukS1k=/?share_link_id=246721087919)
+
+## ✅ Menu Restaurante
+🔗 [Acessar fluxograma](https://miro.com/app/board/uXjVIvG45zE=/?share_link_id=148354674661)
+
+## ✅ Menu Cliente
+🔗 [Acessar fluxograma](https://miro.com/app/board/uXjVIvu0y1g=/?share_link_id=842835422224)
+
+## ✅ Pesquisa
+🔗 [Acessar fluxograma](https://miro.com/app/board/uXjVIvGquwY=/?share_link_id=880846900225)
+
+
+## 📂 Link Alternativo: Fluxogramas no Google Drive
+
+Se preferir, você também pode acessar todos os fluxogramas diretamente pelo Google Drive:
+
+🔗 [Acessar pasta com os fluxogramas no Drive](https://drive.google.com/drive/folders/1v_Ecn46yD4etBd9W9wpEXHmRZ9VWXDsR?usp=sharing)
+
+## ℹ️ Observação
+Todos os fluxogramas são de visualização pública via Miro e Google Drive, garantindo fácil acesso para consulta e colaboração.
+
 
 Feito por Carlos Batista e Luan Marcos<br>Sistema de Informação - UFRPE
