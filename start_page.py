@@ -1,19 +1,45 @@
 from login import *
 from cliente_create import *
-from menu_principal import *
+from res_create import *
+import shutil
+import os
+
+if os.path.exists("pycache"):
+    shutil.rmtree("pycache")
+if os.path.exists(".history"):
+    shutil.rmtree(".history")
 
 def main():
-    def opcoes_cad_login(exe, usuario,repositorio_json, modulo):
+    """
+     - Função principal do aplicativo    
+      
+    """
+    
+    
+    def opcoes_cad_login(exe, usuario,repositorio_json, modulo_cadastro):
+        
+        """
+        - Realiza qual segmento o usuário deseja (cadastro, login)
+        
+        Parâmetros: 
+        exe (bool): Serve como moderador do While
+        usuario (str): O tipo de usuário (cliente, restaurante/empresa)
+        repositorio_json (json): Dependendo do usuario, será o repositório JSON que aliementará
+        modulo_cadastro: Modulo de funcionalidade para criação de conta
+        
+        """
+        
+        
+        
         while exe:
             operacao = str(input('----------------------------\n  Selecione uma das seguintes opções:\n1. Login \n2. Cadastro\n0. Encerrar\n'))
             if operacao == '1': #Checa qual tecla foi pressionada e para onde o código deve seguir
                 print(f'----------------------------\n  Realizando login de {usuario}...')
                 login(repositorio_json)
-                menu()
             elif operacao == '2':
                 print(f'----------------------------\n  Realizando cadastro de {usuario}...')
-                modulo()
-                menu()
+                modulo_cadastro()
+                login(repositorio_json)
             elif operacao == '0':
                 print('----------------------------\n  Saindo...')
                 exe = False
@@ -48,10 +74,9 @@ def main():
 
     execucao = True
     if empresa:
-        opcoes_cad_login(execucao,'restaurantes','restaurantes.json',res_create)
+        opcoes_cad_login(execucao, 'restaurantes', 'bancos_json/restaurantes.json', res_create)
     if cliente:
-        opcoes_cad_login(execucao, 'clientes','clientes.json',cliente_create)
-        
+        opcoes_cad_login(execucao, 'clientes', 'bancos_json/clientes.json', cliente_create)
 
 if __name__ == "__main__": #Define o seguimento como principal
     main()

@@ -1,0 +1,80 @@
+{
+    "Boteco do Byte": [
+        {
+            "nome-prato": "Byte Burguer",
+            "descricao": "Hambúrguer artesanal com queijo cheddar e molho especial.",
+            "palavras-chave": "hambúrguer, cheddar, artesanal, sem lactose",
+            "preco": 25.0
+        },
+        {
+            "nome-prato": "Pipoca Nerd",
+            "descricao": "Pipoca gourmet com temperos especiais e sem glúten.",
+            "palavras-chave": "pipoca, gourmet, sem glúten, petisco",
+            "preco": 15.0
+        }
+    ],
+    "Sabor & Código": [
+        {
+            "nome-prato": "Salada Algorítmica",
+            "descricao": "Mix de folhas orgânicas com molho cítrico e sementes.",
+            "palavras-chave": "salada, orgânico, vegano, sem lactose",
+            "preco": 20.0
+        },
+        {
+            "nome-prato": "Wrap de Frango",
+            "descricao": "Wrap integral recheado com frango grelhado e legumes frescos.",
+            "palavras-chave": "wrap, frango, integral, sem glúten",
+            "preco": 22.5
+        }
+    ],
+    "Cantina da Nonna Maria": [
+        {
+            "nome-prato": "Linguini ao Pomodoro",
+            "descricao": "Massa linguini com molho de tomate fresco e manjericão.",
+            "palavras-chave": "massa, linguini, italiano, sem lactose",
+            "preco": 30.0
+        },
+        {
+            "nome-prato": "Risoto de Cogumelos",
+            "descricao": "Risoto cremoso com mix de cogumelos frescos.",
+            "palavras-chave": "risoto, cogumelos, vegetariano, sem glúten",
+            "preco": 35.0
+        }
+    ],
+    "Veg & Vibes": [
+        {
+            "nome-prato": "Burger Vegano",
+            "descricao": "Hambúrguer de grão-de-bico com molho tahine.",
+            "palavras-chave": "vegano, hambúrguer, sem lactose, sem glúten",
+            "preco": 28.0
+        },
+        {
+            "nome-prato": "Smoothie Verde",
+            "descricao": "Smoothie detox com couve, maçã e gengibre.",
+            "palavras-chave": "smoothie, detox, vegano, orgânico",
+            "preco": 12.0
+        }
+    ],
+    "Tapiocaria Raiz": [
+        {
+            "nome-prato": "Tapioca de Queijo Coalho",
+            "descricao": "Tapioca tradicional com queijo coalho.",
+            "palavras-chave": "tapioca, nordeste, queijo coalho, sem glúten",
+            "preco": 18.0
+        },
+        {
+            "nome-prato": "Tapioca Doce de Coco",
+            "descricao": "Tapioca com recheio de coco ralado e leite condensado.",
+            "palavras-chave": "tapioca, doce, coco, sem nozes",
+            "preco": 16.0
+        }
+    ],
+    "Carlos Batista Empresa": [
+        {
+            "nome-prato": "Sorvete",
+            "descricao": "Bolas de sorvete com frutas cristalizadas",
+            "palavras-chave": "sorvete, frutas, frios, sem lactose",
+            "preco": 15.0
+        }
+    ]
+}
