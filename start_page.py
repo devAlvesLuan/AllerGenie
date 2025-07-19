@@ -1,78 +1,82 @@
-#Bibliotecas
-import keyboard
+from login import *
 from cliente_create import *
+from res_create import *
+import shutil
+import os
+
+if os.path.exists("pycache"):
+    shutil.rmtree("pycache")
+if os.path.exists(".history"):
+    shutil.rmtree(".history")
 
 def main():
+    """
+     - Função principal do aplicativo    
+      
+    """
+    
+    
+    def opcoes_cad_login(exe, usuario,repositorio_json, modulo_cadastro):
+        
+        """
+        - Realiza qual segmento o usuário deseja (cadastro, login)
+        
+        Parâmetros: 
+        exe (bool): Serve como moderador do While
+        usuario (str): O tipo de usuário (cliente, restaurante/empresa)
+        repositorio_json (json): Dependendo do usuario, será o repositório JSON que aliementará
+        modulo_cadastro: Modulo de funcionalidade para criação de conta
+        
+        """
+        
+        
+        
+        while exe:
+            operacao = str(input('----------------------------\n  Selecione uma das seguintes opções:\n1. Login \n2. Cadastro\n0. Encerrar\n'))
+            if operacao == '1': #Checa qual tecla foi pressionada e para onde o código deve seguir
+                print(f'----------------------------\n  Realizando login de {usuario}...')
+                login(repositorio_json)
+            elif operacao == '2':
+                print(f'----------------------------\n  Realizando cadastro de {usuario}...')
+                modulo_cadastro()
+                login(repositorio_json)
+            elif operacao == '0':
+                print('----------------------------\n  Saindo...')
+                exe = False
+            else:
+                print('----------------------------\n  Erro: Inserção inválida.')
+ 
     print('================================================================\n                     Bem vindo ao AllerGenie\n================================================================')
-    print('----------------------------\n  Pressione a \'Barra de Espaço\' para começar')
-    keyboard.wait('space_bar') #Espera uma tecla até seguir em frente
-    print('----------------------------\n  Iniciando...')
-
-#Variáveis
-execucao_um = True
-execucao_dois = True
-empresa = 'Empresa'
-cliente = 'Cliente'
-
-
-
-#Definir se é empresa ou cliente
-while execucao_um == True:
-    print('Bem vindo ao AllerGenie!\nSelecione uma das seguintes opções:\n1. Empresa \n2. Cliente ')
     
-    tecla = keyboard.read_key() #Guarda a tecla pressionada
+    execucao = True
+    while execucao:
+        comeco = input('----------------------------\n  Pressione \'Enter\' para começar')
+        if comeco == '':
+            print('----------------------------\n  Iniciando...')
+            execucao = False
 
-    #Erro de inserção inválida
-    if tecla not in ['1', '2']:
-        print("\nErro: Inserção inválida\n")
-    else:
-        execucao_um = False
-    
-    #Printa o que foi escolhido inicialmente
-    if tecla == '1':
-        print("\nEscolhido: ", empresa)
-    elif tecla == '2':
-        print("\nEscolhido: ", cliente)
+    execucao = True
+    empresa = False
+    cliente = False
 
+    while execucao:
+        opcao = str(input('----------------------------\n Gostaria de entrar como: \n1. Cliente\n2. Empresa\n').strip())
+        if opcao == '1':
+            print('Entrando como cliente...')
+            cliente = True
+            execucao = False
+        elif opcao == '2':
+            print('Entrando como empresa...')
+            empresa = True
+            execucao = False
+        else:
+            print('----------------------------\n  Erro: Inserção inválida.')
 
+    execucao = True
+    if empresa:
+        opcoes_cad_login(execucao, 'restaurantes', 'bancos_json/restaurantes.json', res_create)
+    if cliente:
+        opcoes_cad_login(execucao, 'clientes', 'bancos_json/clientes.json', cliente_create)
 
-#Escolher entre login e cadastro ou cancelar
-while execucao_dois == True:
-    tecla_log_cad = int(input('Bem vindo ao AllerGenie!\nSelecione uma das seguintes opções:\n1. Login \n2. Cadastro \n3. Cancelar : ', ))
-
-    #Caso escolheu login
-    if tecla_log_cad == 1:
-        print('Realizando login')
-        #Se a primeira escolha foi empresa
-        if tecla == '1':
-            print("Realizando o login de empresa")
-        #Se a primeira escolha foi cliente
-        elif tecla == '2':
-            print("Realizando o login de cliente")
-
-        execucao_dois = False
-
-    
-    #Caso escolheu cadastro
-    elif tecla_log_cad == 2:
-        print('Realizando cadastro')
-        #Se a primeira escolha foi empresa
-        if tecla == '1':
-            print("Realizando o cadastro de empresa")
-            
-        #Se a primeira escolha foi cliente
-        elif tecla == '2':
-            print("Realizando o cadastro de cliente")
-            client_create()
-
-        execucao_dois = False
-    elif tecla_log_cad == 3:
-        print("Cancelando. . .")
-        execucao_dois = False
-    #Erro
-    else:
-        print('\nErro: Inserção inválida. Tente novamente\n')
-
-
-#__name__ == '__main__'
-
+if __name__ == "__main__": #Define o seguimento como principal
+    main()
