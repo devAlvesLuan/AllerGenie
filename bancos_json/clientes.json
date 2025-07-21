@@ -4,5 +4,24 @@
         "email": "carlos@gmail.com",
         "senha": "9d408e065e943afb76bc91dfc557176a2b8ff405be4a9274a429e554516dd48b",
         "id": "1742168671600"
+    },
+    {
+        "nome": "Carlos Teste Batista",
+        "email": "testeteste@gmail.com",
+        "senha": "df1712ebcdbc94149c4f6ab8a497a74cac41a7c7fdcf6660e9ac70298831eeee",
+        "id": "2577498252528",
+        "cidade": "Recife"
+    },
+    {
+        "nome": "João João",
+        "email": "joao@gmail.com",
+        "senha": "7a61a439de04f105cb09defd37110b59bc3ca29ad8d930d8eea72a3e954293e2",
+        "id": "2993507891888"
+    },
+    {
+        "nome": "jojo@gmail.com",
+        "email": "jojo@gmail.com",
+        "senha": "dd0cac4734d1e2b7d571e9cb07784ae4a4eef2c2b448bb600feeef545b358820",
+        "id": "1551301995504"
     }
 ]

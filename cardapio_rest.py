@@ -84,7 +84,7 @@ def cardapio(usuario_encontrado):
     print("------ CARDÁPIO ------")
     print(f"Bem vindo à criação de cardápio, {nome_restaurante}!")
     print("Digite para qual aba deseja acessar: ")
-    print("\n1. Adicionar prato \n2. Olhar cardápio\n3. Sair")
+    print("\n1. Adicionar prato \n2. Visualizar cardápio\n3. Sair")
     tecla = int(input("> "))
     
     while True:

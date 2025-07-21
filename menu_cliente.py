@@ -1,159 +1,10 @@
-import json
-import pwinput
-from validacoes import *
-from start_page import main 
+from crud_geral import CRUD
 from pesquisa import pesquisa_cliente
-
-
 banco_dados = []
 id_usuario = None
 caminho = 'bancos_json/clientes.json'
 caminho_restaurantes = "bancos_json/restaurantes.json"
 caminho_cardapio = "bancos_json/cardapio.json"
-
-
-
-def apagar_conta(usuario_encontrado):
-    """
-    - Exclui a conta do usuário após confirmação de credenciais e confirmação textual.
-
-    Parâmetro:
-       - usuario_encontrado (dict): Dicionário contendo os dados do usuário logado.
-    """
-    id_usuario = usuario_encontrado.get('id')
-
-    exc = True
-    print("Deseja continuar e deletar sua conta? ")
-    print("\n1. Sim \n2. Não")
-    opc = int(input("> "))
-    
-    if opc == 1:
-        while exc:
-            email = input("Digite seu email (Digite 2 para voltar para edição de perfil): ")
-            if email != '2':
-                senha = pwinput.pwinput(prompt='Digite sua senha: ', mask = '*')
-                banco_dados = atualizar_dados()
-                if usuario_encontrado.get('email') == email and usuario_encontrado.get('senha') == criptografador(senha):
-                    conferir = input("Escreva 'Confirmo' para confirmar a exclusão da sua conta: ").lower().strip()
-            
-                    if conferir == 'confirmo':
-                        for usuario in banco_dados:
-                            if usuario.get('id') == id_usuario:
-                                banco_dados.remove(usuario)
-                                break
-                        
-                        salvar_dados(banco_dados)
-                        main()
-                    else:
-                        print('Inserção inválida')
-                else:
-                    print("Tente novamente")
-            elif email == '2':
-                editar_perfil(usuario_encontrado)
-            else:
-                print('Inserção inválida')
-    elif opc == 2:
-        print("Voltando para a edição de perfil. . .")
-        editar_perfil(usuario_encontrado)
-    else: 
-        print("Inserção inválida")
-        
-
-def atualizar_dados():
-    """
-    Lê e retorna os dados do arquivo JSON.
-
-    Returns:
-        - list: Lista de usuários armazenados no arquivo JSON.
-    """
-    with open(caminho, 'r', encoding='utf-8') as file:
-        return json.load(file)
-
-def salvar_dados(banco_dados):
-    """
-    Salva os dados atualizados no arquivo JSON.
-
-    Parâmetro:
-        - banco_dados (list): Lista de usuários atualizada.
-    """
-    with open(caminho, 'w', encoding='utf-8') as f:
-        json.dump(banco_dados, f, indent=4, ensure_ascii=False)
-
-def atualizar_usuario(usuario_encontrado, campo, dados_novos):
-    """
-    - Atualiza um campo específico do usuário.
-
-    Parâmetro:
-       - usuario_encontrado (dict): Dicionário do usuário logado.
-       - campo (str): Campo que será atualizado.
-       - dados_novos (str): Novo valor para o campo.
-
-    Retorna:
-        list: Lista atualizada com os dados modificados.
-    """
-    banco_dados = atualizar_dados()
-    id_usuario = usuario_encontrado.get('id')
-    
-    for usuario in banco_dados:
-        if usuario.get('id') == id_usuario:
-            usuario[campo] = dados_novos
-            usuario_encontrado[campo] = dados_novos
-            salvar_dados(banco_dados)
-            break  
-
-    return banco_dados
-
-def atualizar_nome(usuario_encontrado):
-    """
-    - Atualiza o nome do usuário, com verificação de entrada e opção de voltar.
-
-    Parâmetro:
-       - usuario_encontrado (dict): Dicionário do usuário logado.
-    """
-    while True:
-        dados_novos = input("Atualize seu nome: (Digite 2 para voltar)")
-        if validador_nome(dados_novos):
-            break
-        elif dados_novos == '2':
-            print("Voltando para a edição de perfil. . .")
-            editar_perfil(usuario_encontrado)
-    
-    atualizar_usuario(usuario_encontrado, 'nome', dados_novos)
-    mostrar_perfil(usuario_encontrado)
-
-def atualizar_senha(usuario_encontrado):
-    """
-    - Atualiza a senha do usuário após verificação de email e senha atual.
-    
-    Parâmetro:
-       - usuario_encontrado (dict): Dicionário do usuário logado.
-    """
-    atualizando = True
-    while atualizando:
-        print('Confirme que é você. (Digite 2 para voltar.)')
-        email = input("Digite seu email: ")
-        if email != '2':
-            senha = pwinput.pwinput(prompt='Digite sua senha: ', mask = '*')
-            if usuario_encontrado.get('email') == email and usuario_encontrado.get('senha') == criptografador(senha):
-                while True:
-                    dados_novos = pwinput.pwinput(prompt="Atualize sua senha (Digite 2 para voltar): ", mask = '*')
-                    if dados_novos != '2':
-                        confirmacao = pwinput.pwinput(prompt="Digite sua senha novamente: ", mask = '*')
-                        if validador_senha(dados_novos, confirmacao):
-                            atualizar_usuario(usuario_encontrado, 'senha', criptografador(dados_novos))
-                            print("Senha modificada com sucesso!")
-                            mostrar_perfil(usuario_encontrado)
-                    elif dados_novos == '2':
-                        print("Voltando para a edição de perfil. . .")
-                        editar_perfil(usuario_encontrado)
-                
-            else:
-                print("Login inválido. Insira dados novamente ou retorne a edição de perfil inserindo '0'.")
-        elif email == '2':
-            print("Voltando para a edição de perfil. . .")
-            editar_perfil(usuario_encontrado)
-        else:
-            print('Inserção inválida')
 
 def adicionar_alergia(usuario_encontrado):
     """
@@ -167,12 +18,12 @@ def adicionar_alergia(usuario_encontrado):
     
     dados_novos = input("Digite sua(s) alergia(s): ")
     usuario_encontrado['alergia'] = dados_novos
-    banco_dados = atualizar_dados()
+    banco_dados = CRUD.atualizar_dados()
     
     for usuario in banco_dados:
         if usuario.get('id') == id_usuario:
             usuario['alergia'] = usuario_encontrado['alergia'] 
-            salvar_dados(banco_dados)
+            CRUD.salvar_dados(banco_dados)
             break 
         
     mostrar_perfil(usuario_encontrado)
@@ -188,13 +39,13 @@ def adicionar_cidade(usuario_encontrado):
         usuario_encontrado['cidade'] = ""
 
     dados_novos = input("Digite a cidade onde seu restaurante reside: ")
-    atualizar_usuario(usuario_encontrado, 'cidade', dados_novos)
+    CRUD.atualizar_usuario(usuario_encontrado, 'cidade', dados_novos)
 
     print("Cidade adicionada com sucesso!")
     mostrar_perfil(usuario_encontrado)
         
-    salvar_dados(banco_dados)
-    mostrar_perfil(usuario_encontrado)
+    CRUD.salvar_dados(banco_dados)
+    CRUD.mostrar_perfil(usuario_encontrado)
 
 
 
@@ -212,15 +63,15 @@ def editar_perfil(usuario_encontrado):
     opc = int(input("> "))
 
     if opc == 1:
-        atualizar_nome(usuario_encontrado)
+        CRUD.atualizar_nome(usuario_encontrado)
     elif opc == 2:
-        atualizar_senha(usuario_encontrado)
+        CRUD.atualizar_senha(usuario_encontrado)
     elif opc == 3:
         adicionar_alergia(usuario_encontrado)
     elif opc == 4:
         adicionar_cidade(usuario_encontrado)
     elif opc == 5:
-        apagar_conta(usuario_encontrado)
+        CRUD.apagar_conta(usuario_encontrado)
     elif opc == 6:
         print("Saindo . . .")
         menu_cliente(usuario_encontrado)
@@ -276,17 +127,10 @@ def menu_cliente(usuario_encontrado):
 
         if tecla not in [1, 2, 3]:
             print("\nErro: Pressione um número válido\n")
-            continue
-
-        if tecla == 1:
+        elif tecla == 1:
             mostrar_perfil(usuario_encontrado)
-            execucao = False  
-            break
         elif tecla == 2:
             pesquisa_cliente(usuario_encontrado)
+            menu_cliente(usuario_encontrado)
         elif tecla == 3:
             print("bliblibliblib")
-
-
-
-

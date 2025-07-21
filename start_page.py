@@ -1,8 +1,10 @@
 from login import *
 from cliente_create import *
-from res_create import *
+from res_create import res_create
 import shutil
 import os
+from menu_cliente import *
+from menu_restaurante import *
 
 if os.path.exists("pycache"):
     shutil.rmtree("pycache")
@@ -35,11 +37,12 @@ def main():
             operacao = str(input('----------------------------\n  Selecione uma das seguintes opções:\n1. Login \n2. Cadastro\n0. Encerrar\n'))
             if operacao == '1': #Checa qual tecla foi pressionada e para onde o código deve seguir
                 print(f'----------------------------\n  Realizando login de {usuario}...')
-                login(repositorio_json)
+                menu_cliente(login(repositorio_json))
             elif operacao == '2':
                 print(f'----------------------------\n  Realizando cadastro de {usuario}...')
                 modulo_cadastro()
-                login(repositorio_json)
+                usuario = login(repositorio_json)
+                menu_empresa(usuario)
             elif operacao == '0':
                 print('----------------------------\n  Saindo...')
                 exe = False

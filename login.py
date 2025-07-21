@@ -1,5 +1,6 @@
-from menu_cliente import *
-from menu_restaurante import *
+import json
+import pwinput
+from validacoes import criptografador
 
 def login(caminho_json):
     
@@ -36,10 +37,7 @@ def login(caminho_json):
             senha = pwinput.pwinput(prompt='----------------------------\nInsira sua senha: ', mask='*')
             if usuario_encontrado.get('senha') == criptografador(senha):
                 print("-- Login realizado com sucesso! --")
-                if 'cnpj' not in usuario_encontrado:
-                    menu_cliente(usuario_encontrado)
-                else:
-                    menu_empresa(usuario_encontrado)
+                return usuario_encontrado
             else:
                 print("----------------------------\nErro: Senha inválida.")
         else:

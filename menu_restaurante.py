@@ -1,7 +1,6 @@
 import json
 import pwinput
 from validacoes import *
-from start_page import main
 from cardapio_rest import cardapio
 
 banco_dados = []
@@ -38,7 +37,6 @@ def apagar_conta(usuario_encontrado):
                                 break
 
                         salvar_dados(banco_dados)
-                        main()
                     else:
                         print('Inserção inválida')
                 else:

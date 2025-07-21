@@ -1,5 +1,6 @@
-from login import *
+import json
 from validacoes import criptografador
+
 dados = []
 
 class CRUD:
@@ -13,7 +14,60 @@ class CRUD:
     | senha (str): Senha do cliente
     
     """
+    @staticmethod
+    def atualizar_dados(caminho):
+        with open(caminho, 'r', encoding='utf-8') as file:
+            return json.load(file)
+        
+    @staticmethod
+    def salvar_dados(caminho, banco_dados):
+        with open(caminho, 'w', encoding='utf-8') as f:
+            json.dump(banco_dados, f, indent=4, ensure_ascii=False)
+
+    def atualizar_usuario(self, usuario_encontrado, campo, dados_novos):
+        banco_dados = CRUD.atualizar_dados()
+        id_usuario = usuario_encontrado.get('id')
+        
+        for usuario in banco_dados:
+            if usuario.get('id') == id_usuario:
+                usuario[campo] = dados_novos
+                usuario_encontrado[campo] = dados_novos
+                CRUD.salvar_dados(banco_dados)
     
+    def atualizar_nome(self, usuario_encontrado):
+        dados_novos = input("Atualize seu nome: ")
+        
+        CRUD.atualizar_usuario(usuario_encontrado, 'nome', dados_novos)
+        CRUD.mostrar_perfil(usuario_encontrado)
+
+    
+    def atualizar_email(self, usuario_encontrado):
+        
+        dados_novos  = input("Atualize seu senha: ")
+        CRUD.atualizar_usuario(usuario_encontrado, 'senha', dados_novos)
+        CRUD.mostrar_perfil(usuario_encontrado)
+        
+        
+
+    def adicionar_cidade(self, usuario_encontrado):
+        
+        if 'cidade' not in usuario_encontrado:
+            usuario_encontrado['cidade'] = ""
+        
+        dados_novos = input("Digite sua cidade: ")
+        usuario_encontrado['cidade'] = dados_novos
+        banco_dados = CRUD.atualizar_dados()
+        
+        id_usuario = usuario_encontrado.get('id')
+        for usuario in banco_dados:
+            if usuario.get('id') == id_usuario:
+                usuario['cidade'] = usuario_encontrado['cidade'] 
+                
+                break 
+        
+        self.salvar_dados(banco_dados)
+        CRUD.mostrar_perfil(usuario_encontrado)
+
     def __init__(self, nome_usuario, email, senha_1): #Adiciona atributos às instâncias
         self.nome_cliente = nome_usuario
         self.email = email
@@ -42,7 +96,7 @@ class CRUD:
             senha = input("Digite sua Senha: ")
         
             while exc:
-                banco_dados = atualizar_dados()
+                banco_dados = CRUD.atualizar_dados()
                 if usuario_encontrado.get('email') == email and usuario_encontrado.get('senha') == senha:
                     confir = input("Escreva 'Confirmo' para confirmar a exclusão da sua conta: ")
             
@@ -52,76 +106,21 @@ class CRUD:
                                 banco_dados.remove(u)
                                 break
                         
-                        salvar_dados(banco_dados)
+                        CRUD.salvar_dados(banco_dados)
                         exc = False
                 else:
                     print("Tente novamente")
                     exc = True
         elif opc == 2:
             print("Voltando para o perfil. . .")
-            mostrar_perfil(usuario_encontrado)
+            CRUD.mostrar_perfil(usuario_encontrado)
         else: 
             print("Inválido")
-            editar_perfil(usuario_encontrado)
+            CRUD.editar_perfil(usuario_encontrado)
 
 
         return banco_dados
 
-    
-
-
-    @staticmethod
-    def atualizar_dados():
-        with open(caminho, 'r', encoding='utf-8') as file:
-            return json.load(file)
-        
-    @staticmethod
-    def salvar_dados(banco_dados):
-        with open(caminho, 'w', encoding='utf-8') as f:
-            json.dump(banco_dados, f, indent=4, ensure_ascii=False)
-
-    def atualizar_usuario(self, usuario_encontrado, campo, dados_novos):
-        banco_dados = atualizar_dados()
-        id_usuario = usuario_encontrado.get('id')
-        
-        for usuario in banco_dados:
-            if usuario.get('id') == id_usuario:
-                usuario[campo] = dados_novos
-                usuario_encontrado[campo] = dados_novos
-                salvar_dados(banco_dados)
-    
-    def atualizar_nome(self, usuario_encontrado):
-        dados_novos = input("Atualize seu nome: ")
-        
-        atualizar_usuario(usuario_encontrado, 'nome', dados_novos)
-        mostrar_perfil(usuario_encontrado)
-
-    
-    def atualizar_email(self, usuario_encontrado):
-        
-        dados_novos  = input("Atualize seu senha: ")
-        atualizar_usuario(usuario_encontrado, 'senha', dados_novos)
-        mostrar_perfil(usuario_encontrado)
-        
-        
-
-    def adicionar_cidade(self, usuario_encontrado):
-        
-        if 'cidade' not in usuario_encontrado:
-            usuario_encontrado['cidade'] = ""
-        
-        dados_novos = input("Digite sua cidade: ")
-        usuario_encontrado['cidade'] = dados_novos
-        banco_dados = atualizar_dados()
-        
-        for usuario in banco_dados:
-            if usuario.get('id') == id_usuario:
-                usuario['cidade'] = usuario_encontrado['cidade'] 
-                
-                break 
-        
-        self.salvar_dados(banco_dados)
-        mostrar_perfil(usuario_encontrado)
         
 class CrudRestaurante(CRUD):
     def __init__(self, nome_usuario, email, senha_1, cnpj=None):
@@ -137,19 +136,19 @@ class CrudRestaurante(CRUD):
 
 class CrudCliente(CRUD):
     def adicionar_alergia(usuario_encontrado):
-        
+        id_usuario = usuario_encontrado.get('id_usuario')
         if 'alergia' not in usuario_encontrado:
             usuario_encontrado['alergia'] = ""
         
         dados_novos = input("Digite sua(s) alergia(s): ")
         usuario_encontrado['alergia'] = dados_novos
-        banco_dados = atualizar_dados()
+        banco_dados = CRUD.atualizar_dados()
         
         for usuario in banco_dados:
             if usuario.get('id') == id_usuario:
                 usuario['alergia'] = usuario_encontrado['alergia'] 
-                salvar_dados(banco_dados)
+                CRUD.salvar_dados(banco_dados)
                 break 
             
-        mostrar_perfil(usuario_encontrado)
+        CRUD.mostrar_perfil(usuario_encontrado)
         
