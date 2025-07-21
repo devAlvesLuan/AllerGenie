@@ -90,6 +90,8 @@ def visualizar_restaurante(pesquisa, campo):
         opc = int(input("> "))
         if opc == 1:
             print()
+        if opc == 'x':
+            print
             
         
 
