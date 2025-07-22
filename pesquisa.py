@@ -1,5 +1,4 @@
 import json
-from menu_cliente import menu_cliente
 caminho_restaurantes = 'banco_json/restaurante.json'
 caminho_cardapio = 'banco_json/cardapio.json'
 
@@ -82,16 +81,19 @@ def visualizar_restaurante(pesquisa, campo):
         print("\nNada encontrado . . .")
     
     if i == 1:
-        print("Deseja conhecer esse restaurante?\n1.Sim\n 2.Não")
+        print("Deseja conhecer esse restaurante?\n1.Sim\n2.Não")
         opc = int(input("> "))
+        if opc == 1:
+            print('*Informações Restaurante*')
+            acao = input('1.Avaliar Restaurante\n2.Comentar\n3.Adicionar aos favoritos\n4. Adicionar ao MENU Pessoal')
+            if acao == 4:
+                pass
     
     elif i > 1:
         print("Deseja conhecer algum desses restaurantes?\n1.Sim \n2.Não")
         opc = int(input("> "))
         if opc == 1:
-            print()
-        if opc == 'x':
-            print
+            pass
             
         
 
@@ -165,4 +167,3 @@ def pesquisa_cliente(usuario_encontrado):
         pesquisa_cliente(usuario_encontrado)
     elif opc == '5':
         print('Saindo . . .')
-        menu_cliente(usuario_encontrado)
