@@ -1,0 +1,37 @@
+{
+    "2600512470576": {
+        "Glutén Free": [],
+        "Carlitos Brownies": [
+            {
+                "nome": "Sabor & Código",
+                "cnpj": "Não cadastrado.",
+                "email": "saborecodigo@gmail.com",
+                "senha": "bbf2f41b7f1c459b8d3533a4dfc22234c4d9cc7bcfb258b91b44cf5fdcdb7202",
+                "id": "9832746923129",
+                "palavra-chave": "refeição rápida, almoço tech, gourmet, sem lactose, vegano",
+                "descricao": "Onde cada prato é uma linha de código bem executada. Gastronomia para devs!",
+                "cidade": "Boa Viagem, Casa Forte, Madalena",
+                "avaliacao": {
+                    "media": 4.0,
+                    "soma_avaliacoes": 8.0,
+                    "quantidade_avaliacoes": 2
+                }
+            }
+        ],
+        "Bombas Calóricas": [
+            {
+                "nome": "Tapiocaria Raiz",
+                "cnpj": "Não cadastrado.",
+                "email": "raiz.tapioca@yahoo.com",
+                "senha": "a0347d3178f9a9c3164c4fc29b8483cf75f18b02c31f685343b2bb3a77c6f3ee",
+                "id": "5566378902317",
+                "palavra-chave": "regional, tapioca, nordeste, sem glúten, sem nozes",
+                "descricao": "Tapiocas artesanais recheadas de história e sabor nordestino!",
+                "cidade": "Camaragibe, Várzea, Afogados",
+                "avalicao": 5.0
+            }
+        ],
+        "3": [],
+        "Dinossauro rawr": []
+    }
+}

@@ -37,12 +37,11 @@ def main():
             operacao = str(input('----------------------------\n  Selecione uma das seguintes opções:\n1. Login \n2. Cadastro\n0. Encerrar\n'))
             if operacao == '1': #Checa qual tecla foi pressionada e para onde o código deve seguir
                 print(f'----------------------------\n  Realizando login de {usuario}...')
-                menu_cliente(login(repositorio_json))
+                login(repositorio_json)
             elif operacao == '2':
                 print(f'----------------------------\n  Realizando cadastro de {usuario}...')
                 modulo_cadastro()
-                usuario = login(repositorio_json)
-                menu_empresa(usuario)
+                login(repositorio_json)
             elif operacao == '0':
                 print('----------------------------\n  Saindo...')
                 exe = False

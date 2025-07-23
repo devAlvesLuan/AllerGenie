@@ -1,5 +1,7 @@
 from crud_geral import CRUD, CrudCliente
 from pesquisa import pesquisa_cliente
+from biblioteca import Biblioteca
+
 banco_dados = []
 caminho = 'bancos_json/clientes.json'
 caminho_restaurantes = "bancos_json/restaurantes.json"
@@ -33,7 +35,7 @@ def editar_perfil(usuario_encontrado):
         CRUD.apagar_conta(usuario_encontrado)
     elif opc == 6:
         print("Saindo . . .")
-        menu_cliente(usuario_encontrado)
+        menu_client(usuario_encontrado)
     else:
         print("Opção inválida.")
 
@@ -66,11 +68,11 @@ def mostrar_perfil(usuario_encontrado):
             execucao = False
         elif opc == 2:
             print("SAINDO. . .")
-            menu_cliente(usuario_encontrado)
+            menu_client(usuario_encontrado)
             execucao = False
 
 
-def menu_cliente(usuario_encontrado):
+def menu_client(usuario_encontrado):
     """
     - Exibe o menu principal para o cliente com opções de perfil, pesquisa ou biblioteca.
     
@@ -90,6 +92,6 @@ def menu_cliente(usuario_encontrado):
             mostrar_perfil(usuario_encontrado)
         elif tecla == 2:
             pesquisa_cliente()
-            menu_cliente(usuario_encontrado)
+            menu_client(usuario_encontrado)
         elif tecla == 3:
-            print("bliblibliblib")
+            Biblioteca.menu_pessoal(usuario_encontrado)

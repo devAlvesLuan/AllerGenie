@@ -1,5 +1,6 @@
 import json
 from crud_geral import CRUD
+
 caminho_restaurantes = 'bancos_json/restaurantes.json'
 caminho_cardapio = 'bancos_json/cardapio.json'
 
@@ -114,7 +115,8 @@ def visualizar_restaurante(pesquisa, campo):
                 print(f"[DEBUG] nome_restaurante = '{nome_restaurante_encontrado}'")
                 visualizar_cometarios(nome_restaurante_encontrado)
             elif acao == '3':
-                print
+                favoritos = nome_restaurante_encontrado
+                return favoritos
             elif acao == '4':
                 pesquisa_cliente()
                 
@@ -171,7 +173,7 @@ def avaliar_restaurante(restaurante):
               
 
 def visualizar_cometarios(restaurante):
-    banco_comentarios = CRUD.atualizar_dados('bancos_json/comentarios.json')
+    banco_comentarios = CRUD.ler_dados('bancos_json/comentarios.json')
     
     if restaurante in banco_comentarios:
         print(f'\nComentarios para o restaurante {restaurante}\n')
@@ -208,7 +210,7 @@ def visualizar_cometarios(restaurante):
         
         
 def fazer_comentario(restaurante):
-    dados_usuarios_temp = CRUD.atualizar_dados('bancos_json/clientes.json')
+    dados_usuarios_temp = CRUD.ler_dados('bancos_json/clientes.json')
     print("Digite seu email (será utilizado para encontrar seu nome de usuário):\n")
     email = str(input('> '))
     
@@ -227,7 +229,7 @@ def fazer_comentario(restaurante):
     print(f"Digite seu comentario, {nome_usuario}: ")
     comentario = str(input('> '))
     
-    comentarios = CRUD.atualizar_dados('bancos_json/comentarios.json')
+    comentarios = CRUD.ler_dados('bancos_json/comentarios.json')
     
     if restaurante not in comentarios:
         comentarios[restaurante] = {}

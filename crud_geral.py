@@ -15,7 +15,7 @@ class CRUD:
     
     """
     @staticmethod
-    def atualizar_dados(caminho):
+    def ler_dados(caminho):
         with open(caminho, 'r', encoding='utf-8') as file:
             return json.load(file)
         
@@ -25,7 +25,7 @@ class CRUD:
             json.dump(banco_dados, f, indent=4, ensure_ascii=False)
 
     def atualizar_usuario(self, usuario_encontrado, campo, dados_novos):
-        banco_dados = CRUD.atualizar_dados()
+        banco_dados = CRUD.ler_dados()
         id_usuario = usuario_encontrado.get('id')
         
         for usuario in banco_dados:
@@ -56,7 +56,7 @@ class CRUD:
         
         dados_novos = input("Digite sua cidade: ")
         usuario_encontrado['cidade'] = dados_novos
-        banco_dados = CRUD.atualizar_dados()
+        banco_dados = CRUD.ler_dados()
         
         id_usuario = usuario_encontrado.get('id')
         for usuario in banco_dados:
@@ -96,7 +96,7 @@ class CRUD:
             senha = input("Digite sua Senha: ")
         
             while exc:
-                banco_dados = CRUD.atualizar_dados()
+                banco_dados = CRUD.ler_dados()
                 if usuario_encontrado.get('email') == email and usuario_encontrado.get('senha') == senha:
                     confir = input("Escreva 'Confirmo' para confirmar a exclusão da sua conta: ")
             
@@ -146,7 +146,7 @@ class CrudCliente(CRUD):
         
         dados_novos = input("Digite sua(s) alergia(s): ")
         usuario_encontrado['alergia'] = dados_novos
-        banco_dados = CRUD.atualizar_dados()
+        banco_dados = CRUD.ler_dados()
         
         for usuario in banco_dados:
             if usuario.get('id') == id_usuario:
