@@ -76,7 +76,7 @@ class Biblioteca:
             return
 
         # Confirmação
-        print(f"Tem certeza que deseja deletar o MENU '{menu_encontrado}'?\n1. Sim\n2. Não").split()
+        print(f"Tem certeza que deseja deletar o MENU '{menu_encontrado}'?\n1. Sim\n2. Não")
         confirmacao = str(input('> '))
         if confirmacao == '2':
             print("Ação cancelada.")
