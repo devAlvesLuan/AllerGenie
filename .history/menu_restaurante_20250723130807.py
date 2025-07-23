@@ -2,6 +2,7 @@ import json
 import pwinput
 from validacoes import *
 from cardapio_rest import cardapio
+from crud_geral import CRUD, CrudRestaurante
 
 banco_dados = []
 caminho = 'bancos_json/restaurantes.json'
@@ -83,29 +84,6 @@ def salvar_dados(banco_dados):
         json.dump(banco_dados, f, indent=4, ensure_ascii=False)
 
 
-def atualizar_usuario(usuario_encontrado, campo, dados_novos):
-    """
-    - Atualiza um campo específico de um usuário e salva os dados atualizados.
-
-    Parâmetro:
-    - usuario_encontrado: dicionário com os dados do usuário logado.
-    - campo: string representando o campo a ser atualizado.
-    - dados_novos: novo valor a ser atribuído ao campo.
-
-    Retorne:
-    - Lista com os dados atualizados.
-    """
-    banco_dados = atualizar_dados()
-    id_usuario = usuario_encontrado.get('id')
-    
-    for usuario in banco_dados:
-        if usuario.get('id') == id_usuario:
-            usuario[campo] = dados_novos
-            usuario_encontrado[campo] = dados_novos
-            salvar_dados(banco_dados)
-            break  
-
-    return banco_dados
 
 #|-----------------------------------------------------------------------------------|
 
@@ -131,39 +109,6 @@ def atualizar_nome(usuario_encontrado):
     mostrar_perfil(usuario_encontrado)
 
 
-def atualizar_senha(usuario_encontrado):
-    """
-    - Atualiza a senha do restaurante após verificação da identidade.
-
-    Parâmetro:
-    - usuario_encontrado: dicionário com os dados do restaurante logado.
-    """
-    atualizando = True
-    while atualizando:
-        print('Confirme que é você. (Digite 2 para voltar.)')
-        email = input("Digite seu email: ")
-        if email != '2':
-            senha = pwinput.pwinput(prompt='Digite sua senha: ', mask='*')
-            if usuario_encontrado.get('email') == email and usuario_encontrado.get('senha') == criptografador(senha):
-                while True:
-                    dados_novos = pwinput.pwinput(prompt="Atualize sua senha (Digite 2 para voltar): ", mask='*')
-                    if dados_novos != '2':
-                        confirmacao = pwinput.pwinput(prompt="Digite sua senha novamente: ", mask='*')
-                        if validador_senha(dados_novos, confirmacao):
-                            atualizar_usuario(usuario_encontrado, 'senha', criptografador(dados_novos))
-                            print("Senha modificada com sucesso!")
-                            mostrar_perfil(usuario_encontrado)
-                    elif dados_novos == '2':
-                        print("Voltando para a edição de perfil. . .")
-                        editar_perfil(usuario_encontrado)
-            else:
-                print("Login inválido. Insira dados novamente ou retorne a edição de perfil inserindo '0'.")
-        elif email == '2':
-            print("Voltando para a edição de perfil. . .")
-            editar_perfil(usuario_encontrado)
-        else:
-            print('Inserção inválida')
-
 
 def adicionar_cidade(usuario_encontrado):
     """
@@ -179,23 +124,6 @@ def adicionar_cidade(usuario_encontrado):
     atualizar_usuario(usuario_encontrado, 'cidade', dados_novos)
     
     print("Cidade adicionada com sucesso!")
-    mostrar_perfil(usuario_encontrado)
-
-
-def adicionar_palavraChave(usuario_encontrado):
-    """
-    - Adiciona ou atualiza as palavras-chave do restaurante.
-
-    Parâmetro:
-    - usuario_encontrado: dicionário com os dados do restaurante logado.
-    """
-    if 'palavra-chave' not in usuario_encontrado:
-        usuario_encontrado['palavra-chave'] = ""
-    
-    dados_novos = input("Digite a(s) palavra(s)-chave a ser(em) adicionada(s): ")
-    atualizar_usuario(usuario_encontrado, 'palavra-chave', dados_novos)
-    
-    print("Palavras-chaves adicionadas com sucesso!")
     mostrar_perfil(usuario_encontrado)
 
 
@@ -232,17 +160,23 @@ def editar_perfil(usuario_encontrado):
     opc = int(input("> "))
 
     if opc == 1:
-        atualizar_nome(usuario_encontrado)
+        CRUD.atualizar_nome(usuario_encontrado)
+        mostrar_perfil(usuario_encontrado)
     elif opc == 2:
-        atualizar_senha(usuario_encontrado)
+        CRUD.atualizar_senha(usuario_encontrado)
+        mostrar_perfil(usuario_encontrado)
     elif opc == 3:
         adicionar_cidade(usuario_encontrado)
+        mostrar_perfil(usuario_encontrado)
     elif opc == 4:
         adicionar_palavraChave(usuario_encontrado)
+        mostrar_perfil(usuario_encontrado)
     elif opc == 5:
         adicionar_descricao(usuario_encontrado)
+        mostrar_perfil(usuario_encontrado)
     elif opc == 6:
         apagar_conta(usuario_encontrado)
+        
     elif opc == 7:
         print("Saindo . . .")
         menu_empresa(usuario_encontrado)
@@ -265,7 +199,12 @@ def mostrar_perfil(usuario_encontrado):
     print("Cidade: ", usuario_encontrado.get('cidade', 'Não inserido.'))
     print("Palavras-Chaves: ", usuario_encontrado.get('palavra-chave', 'Não inserido.'))
     print("Descrição: ", usuario_encontrado.get('descricao', 'Não inserido.'))
-    print("Avaliação: ", usuario_encontrado.get('avaliacao'))
+    media_restaurante = usuario_encontrado.get('avaliacao', {}).get('media')
+    
+    if media_restaurante is None or media_restaurante == 0.0:
+        print("Avaliação: Sem avaliações.")
+    else:
+        print(f"Avaliação: {media_restaurante:.1f}")
     
     while execucao:
         print("\n1. Editar Perfil \n2. Sair")

@@ -182,38 +182,7 @@ def adicionar_cidade(usuario_encontrado):
     mostrar_perfil(usuario_encontrado)
 
 
-def adicionar_palavraChave(usuario_encontrado):
-    """
-    - Adiciona ou atualiza as palavras-chave do restaurante.
 
-    Parâmetro:
-    - usuario_encontrado: dicionário com os dados do restaurante logado.
-    """
-    if 'palavra-chave' not in usuario_encontrado:
-        usuario_encontrado['palavra-chave'] = ""
-    
-    dados_novos = input("Digite a(s) palavra(s)-chave a ser(em) adicionada(s): ")
-    atualizar_usuario(usuario_encontrado, 'palavra-chave', dados_novos)
-    
-    print("Palavras-chaves adicionadas com sucesso!")
-    mostrar_perfil(usuario_encontrado)
-
-
-def adicionar_descricao(usuario_encontrado):
-    """
-    - Adiciona ou atualiza a descrição do restaurante.
-
-    Parâmetro:
-    - usuario_encontrado: dicionário com os dados do restaurante logado.
-    """
-    if 'descricao' not in usuario_encontrado:
-        usuario_encontrado['descricao'] = ""
-    
-    dados_novos = input("Digite a cidade onde seu restaurante reside: ")
-    atualizar_usuario(usuario_encontrado, 'descricao', dados_novos)
-    
-    print("Descrição adicionada com sucesso!")
-    mostrar_perfil(usuario_encontrado)
 
 
     
@@ -233,16 +202,22 @@ def editar_perfil(usuario_encontrado):
 
     if opc == 1:
         atualizar_nome(usuario_encontrado)
+        mostrar_perfil(usuario_encontrado)
     elif opc == 2:
         atualizar_senha(usuario_encontrado)
+        mostrar_perfil(usuario_encontrado)
     elif opc == 3:
         adicionar_cidade(usuario_encontrado)
+        mostrar_perfil(usuario_encontrado)
     elif opc == 4:
         adicionar_palavraChave(usuario_encontrado)
+        mostrar_perfil(usuario_encontrado)
     elif opc == 5:
         adicionar_descricao(usuario_encontrado)
+        mostrar_perfil(usuario_encontrado)
     elif opc == 6:
         apagar_conta(usuario_encontrado)
+        
     elif opc == 7:
         print("Saindo . . .")
         menu_empresa(usuario_encontrado)
@@ -265,7 +240,12 @@ def mostrar_perfil(usuario_encontrado):
     print("Cidade: ", usuario_encontrado.get('cidade', 'Não inserido.'))
     print("Palavras-Chaves: ", usuario_encontrado.get('palavra-chave', 'Não inserido.'))
     print("Descrição: ", usuario_encontrado.get('descricao', 'Não inserido.'))
-    print("Avaliação:", usuario_encontrado.get('avaliacao', {}).get('media', 'Sem avaliação'))
+    media_restaurante = usuario_encontrado.get('avaliacao', {}).get('media')
+    
+    if media_restaurante is None or media_restaurante == 0.0:
+        print("Avaliação: Sem avaliações.")
+    else:
+        print(f"Avaliação: {media_restaurante:.1f}")
     
     while execucao:
         print("\n1. Editar Perfil \n2. Sair")

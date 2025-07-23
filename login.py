@@ -1,6 +1,7 @@
 import json
 import pwinput
 from validacoes import criptografador
+from util import *
 
 
 def login(caminho_json):
@@ -25,7 +26,8 @@ def login(caminho_json):
 
     while executando:
 
-        email = str(input("----------------------------\nDigite seu email: ").strip().lower())
+        print(Utils.pinta('----------------------------', 'ciano'))
+        email = str(input(("Digite seu email: ")).strip().lower())
 
         usuario_encontrado = None
 
@@ -35,11 +37,15 @@ def login(caminho_json):
                 break
 
         if usuario_encontrado:
-            senha = pwinput.pwinput(prompt='----------------------------\nInsira sua senha: ', mask='*')
+            print(Utils.pinta('----------------------------', 'ciano'))
+            senha = pwinput.pwinput(prompt='Insira sua senha: ', mask='*')
             if usuario_encontrado.get('senha') == criptografador(senha):
-                print("-- Login realizado com sucesso! --")
+                Utils.limpar_tela()
+                print(Utils.pinta("--- Login realizado com sucesso! ---", 'verde_claro'))
                 return usuario_encontrado
             else:
-                print("----------------------------\nErro: Senha inválida.")
+                print(Utils.pinta('----------------------------\n', 'negrito'))
+                print("Erro: Senha inválida.")
         else:
-            print("----------------------------\nErro: Email não cadastrado.")
+            print(Utils.pinta('----------------------------\n', 'negrito'))
+            print("Erro: Email não cadastrado.")

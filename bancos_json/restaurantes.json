@@ -90,5 +90,19 @@
         "senha": "2b9465eff390d93d4e4e037464c36491f6e79f1175ce6eb3d0f44088291796f3",
         "id": "2028646606896",
         "cnpj": "01234567891244"
+    },
+    {
+        "nome": "comedoria massa",
+        "email": "comedoriamassa@gmail.com",
+        "senha": "2247a245cb9fb98853c94fbcba900a778b6fcbbc61ccfe7bc665628545ed8ce1",
+        "id": "2470745971152",
+        "cnpj": "Não cadastrado.",
+        "avaliacao": {
+            "media": 0.0,
+            "soma_avaliacoes": 0,
+            "quantidade_avaliacoes": 0
+        },
+        "palavra-chave": "muita massa, e comida massa",
+        "cidade": "& C:/Users/luanm/AppData/Local/Microsoft/WindowsApps/python3.12.exe c:/Users/luanm/AllerGenie/start_page.py"
     }
 ]

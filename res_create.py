@@ -1,7 +1,8 @@
 import json
 import pwinput
 from validacoes import *
-from crud_geral import CrudRestaurante
+from crud_geral import CrudRestaurante, CRUD
+from util import *
 
 def res_create():
     """
@@ -13,17 +14,20 @@ def res_create():
     with open(caminho_json, 'r', encoding='utf-8') as f:
         dados = json.load(f)
 
-    print("================================================================\n          ---- Seja bem-vindo a tela de cadastro! ----\n================================================================")
+    print(Utils.pinta("================================================================\n          ---- Seja bem-vindo a tela de cadastro! ----\n================================================================", 'verde_claro'))
 
     cnpj_opc = False
     execucao_opc = True
     while True:
-        nome_emp = input('----------------------------\n  Insira o nome da empresa: ')
+        print(Utils.pinta('----------------------------', 'ciano'))
+        nome_emp = input('Insira o nome da empresa: ')
         if validador_nome(nome_emp):
             break
 
     while execucao_opc:
-            opcao = input('----------------------------\n  Incluir CNPJ? (Opcional)\n 1. Sim\n 2. Não\n')
+            print(Utils.pinta('----------------------------', 'ciano'))
+            print('Incluir CNPJ? (Opcional)\n 1. Sim\n 2. Não')
+            opcao = input('> ')
             if opcao == '1':
                 cnpj_opc = True
                 execucao_opc = False
@@ -37,27 +41,30 @@ def res_create():
 
     if cnpj_opc: #Checa se o usuário quer inserir CNPJ ou não
         while True:
-            cnpj = input('----------------------------\n  Insira seu CNPJ:')
+            print(Utils.pinta('----------------------------', 'ciano'))
+            cnpj = input('Insira seu CNPJ:')
             if validador_cnpj(cnpj_opc, cnpj, dados):
                 break
     else:
         cnpj = 'Não cadastrado.'
 
     while True:
-        email_emp = input('----------------------------\n  Insira seu email (Exemplo: cleyton@gmail.com):').lower().strip()
+        print(Utils.pinta('----------------------------', 'ciano'))
+        email_emp = input('Insira seu email (Exemplo: cleyton@gmail.com):').lower().strip()
         if validador_email(email_emp, dados):
             break
 
     while True:
-        senha_emp = pwinput.pwinput(prompt='----------------------------\n  Insira sua senha (Ela deve incluir pelo menos 10 caractéres, uma letra maiúscula e dois número):', mask = '*')
-        confirm_senha = pwinput.pwinput(prompt='----------------------------\n  Insira sua senha novamente:', mask = '*')
+        print(Utils.pinta('----------------------------', 'ciano'))
+        senha_emp = pwinput.pwinput(prompt='Insira sua senha (Ela deve incluir pelo menos 10 caractéres, uma letra maiúscula e dois número):', mask = '*')
+        confirm_senha = pwinput.pwinput(prompt='Insira sua senha novamente:', mask = '*')
         if validador_senha(senha_emp, confirm_senha):
             break
     
-    print('Cadastro realizado com sucesso.')
+    Utils.limpar_tela()
+    print(Utils.pinta('-- Cadastro realizado com sucesso! --', 'magenta_claro'))
     restaurant = CrudRestaurante(nome_emp, email_emp, senha_emp, cnpj) #Cria objeto
 
     dados.append(restaurant.criador_dic()) #Adiciona dados ao arquivo
 
-    with open(caminho_json, 'w', encoding='utf-8') as f: #Salva dados alterados
-        json.dump(dados, f, indent = 4, ensure_ascii= False)
+    CRUD.salvar_dados(caminho_json, dados)

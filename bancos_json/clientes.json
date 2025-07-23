@@ -25,9 +25,23 @@
         "id": "1551301995504"
     },
     {
-        "nome": "luan",
+        "nome": "luan marcos",
         "email": "luan@gmail.com",
         "senha": "45aa58c9fa02129027ef0101ba0fd584fd18127869cbb4a64a9243fad5143600",
-        "id": "2171622678448"
+        "id": "2171622678448",
+        "alergia": "gluten, agua e sei la",
+        "cidade": "jaboatão dos guararapes "
+    },
+    {
+        "nome": "luan",
+        "email": "luan2@gmail.com",
+        "senha": "45aa58c9fa02129027ef0101ba0fd584fd18127869cbb4a64a9243fad5143600",
+        "id": "2017511724784"
+    },
+    {
+        "nome": "meu nome é",
+        "email": "meunome@gmail.com",
+        "senha": "45aa58c9fa02129027ef0101ba0fd584fd18127869cbb4a64a9243fad5143600",
+        "id": "2435155003696"
     }
 ]
