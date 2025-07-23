@@ -1,51 +1,10 @@
-from crud_geral import CRUD
+from crud_geral import CRUD, CrudCliente
 from pesquisa import pesquisa_cliente
 banco_dados = []
-id_usuario = None
 caminho = 'bancos_json/clientes.json'
 caminho_restaurantes = "bancos_json/restaurantes.json"
 caminho_cardapio = "bancos_json/cardapio.json"
 
-def adicionar_alergia(usuario_encontrado):
-    """
-    - Adiciona ou atualiza as alergias do usuário no perfil.
-
-    Parâmetro:
-        usuario_encontrado (dict): Dicionário do usuário logado.
-    """
-    if 'alergia' not in usuario_encontrado:
-        usuario_encontrado['alegia'] = ""
-    
-    dados_novos = input("Digite sua(s) alergia(s): ")
-    usuario_encontrado['alergia'] = dados_novos
-    banco_dados = CRUD.atualizar_dados()
-    
-    for usuario in banco_dados:
-        if usuario.get('id') == id_usuario:
-            usuario['alergia'] = usuario_encontrado['alergia'] 
-            CRUD.salvar_dados(banco_dados)
-            break 
-        
-    mostrar_perfil(usuario_encontrado)
-
-def adicionar_cidade(usuario_encontrado):
-    """
-    - Adiciona ou atualiza a cidade do restaurante do usuário.
-
-    Parâmetro:
-     - usuario_encontrado (dict): Dicionário do usuário logado.
-    """
-    if 'cidade' not in usuario_encontrado:
-        usuario_encontrado['cidade'] = ""
-
-    dados_novos = input("Digite a cidade onde seu restaurante reside: ")
-    CRUD.atualizar_usuario(usuario_encontrado, 'cidade', dados_novos)
-
-    print("Cidade adicionada com sucesso!")
-    mostrar_perfil(usuario_encontrado)
-        
-    CRUD.salvar_dados(banco_dados)
-    CRUD.mostrar_perfil(usuario_encontrado)
 
 
 
@@ -67,9 +26,9 @@ def editar_perfil(usuario_encontrado):
     elif opc == 2:
         CRUD.atualizar_senha(usuario_encontrado)
     elif opc == 3:
-        adicionar_alergia(usuario_encontrado)
+        CrudCliente.adicionar_alergia(usuario_encontrado)
     elif opc == 4:
-        adicionar_cidade(usuario_encontrado)
+        CRUD.adicionar_cidade(usuario_encontrado)
     elif opc == 5:
         CRUD.apagar_conta(usuario_encontrado)
     elif opc == 6:
@@ -130,7 +89,7 @@ def menu_cliente(usuario_encontrado):
         elif tecla == 1:
             mostrar_perfil(usuario_encontrado)
         elif tecla == 2:
-            pesquisa_cliente(usuario_encontrado)
+            pesquisa_cliente()
             menu_cliente(usuario_encontrado)
         elif tecla == 3:
             print("bliblibliblib")

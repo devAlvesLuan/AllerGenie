@@ -17,7 +17,12 @@
         "id": "9832746923129",
         "palavra-chave": "refeição rápida, almoço tech, gourmet, sem lactose, vegano",
         "descricao": "Onde cada prato é uma linha de código bem executada. Gastronomia para devs!",
-        "cidade": "Boa Viagem, Casa Forte, Madalena"
+        "cidade": "Boa Viagem, Casa Forte, Madalena",
+        "avaliacao": {
+            "media": 4.0,
+            "soma_avaliacoes": 8.0,
+            "quantidade_avaliacoes": 2
+        }
     },
     {
         "nome": "Cantina da Nonna Maria",
@@ -37,7 +42,12 @@
         "id": "1092837465521",
         "palavra-chave": "vegano, saudável, orgânico, sem lactose, intolerância",
         "descricao": "Comida leve, orgânica e cheia de energia boa. Vem sentir as vibes!",
-        "cidade": "Graças, Poço da Panela, Espinheiro"
+        "cidade": "Graças, Poço da Panela, Espinheiro",
+        "avaliacao": {
+            "media": "",
+            "soma_avaliacoes": "",
+            "quantidade_avaliacoes": ""
+        }
     },
     {
         "nome": "Tapiocaria Raiz",
@@ -47,7 +57,8 @@
         "id": "5566378902317",
         "palavra-chave": "regional, tapioca, nordeste, sem glúten, sem nozes",
         "descricao": "Tapiocas artesanais recheadas de história e sabor nordestino!",
-        "cidade": "Camaragibe, Várzea, Afogados"
+        "cidade": "Camaragibe, Várzea, Afogados",
+        "avalicao": 5.0
     },
     {
         "nome": "NiceCream LTDA",

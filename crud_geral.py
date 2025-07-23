@@ -6,7 +6,7 @@ dados = []
 class CRUD:
     
     """
-    Representa um cliente do aplicativo AllerGenie.
+    Representa um usuario do aplicativo AllerGenie.
 
     Atributos:
     nome (str): Nome do cliente
@@ -123,14 +123,18 @@ class CRUD:
 
         
 class CrudRestaurante(CRUD):
-    def __init__(self, nome_usuario, email, senha_1, cnpj=None):
+    def __init__(self, nome_usuario=None, email=None, senha_1=None, cnpj=None, avaliacao=None):
         super().__init__(nome_usuario, email, senha_1)
         self.cnpj = cnpj
+        self.avaliacao = avaliacao if avaliacao is not None else 'Sem avaliação'
     
     def criador_dic(self):
         dados = super().criador_dic()
         if self.cnpj:
             dados["cnpj"] = self.cnpj
+            
+        dados["avaliacao"] = self.nota
+        
         return dados
 
 

@@ -265,7 +265,7 @@ def mostrar_perfil(usuario_encontrado):
     print("Cidade: ", usuario_encontrado.get('cidade', 'Não inserido.'))
     print("Palavras-Chaves: ", usuario_encontrado.get('palavra-chave', 'Não inserido.'))
     print("Descrição: ", usuario_encontrado.get('descricao', 'Não inserido.'))
-    print("Avaliação:", usuario_encontrado.get('avaliacao', {}).get('media', 'Sem avaliação'))
+    print("Avaliação: ", usuario_encontrado.get('avaliacao'))
     
     while execucao:
         print("\n1. Editar Perfil \n2. Sair")

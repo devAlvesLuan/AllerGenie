@@ -1,0 +1,35 @@
+{
+    "Boteco do Byte": {
+        "Gabriel Ferreira": [
+            "Ambiente descontraído e cheio de referências geeks. Amei!",
+            "Os petiscos são ótimos, mas a música estava um pouco alta."
+        ],
+        "Lívia Rocha": [
+            "Achei super criativo! Volto com certeza com meus amigos da facul."
+        ],
+        "luan": [
+            "muito boa a comida, gostei muito!"
+        ]
+    },
+    "Sabor & Código": {
+        "Henrique Alves": [
+            "O prato do dia era literalmente uma obra de arte. Muito bem apresentado e saboroso.",
+            "A sobremesa demorou pra chegar, mas estava deliciosa."
+        ],
+        "Juliana Mendes": [
+            "Atendimento excelente. O garçom sabia até explicar o nome dos pratos baseados em linguagem de programação!"
+        ],
+        "luan": [
+            "muito massa a comida!"
+        ]
+    },
+    "Cantina da Nonna Maria": {
+        "Matheus Dias": [
+            "Parece comida de vó mesmo! Que delícia!",
+            "Pedi o nhoque da casa e quase chorei de emoção. Obrigado, Nonna!"
+        ],
+        "Beatriz Lemos": [
+            "Restaurante acolhedor e comida cheia de sabor. Voltarei com minha família."
+        ]
+    }
+}

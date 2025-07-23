@@ -2,6 +2,7 @@ import json
 import pwinput
 from validacoes import criptografador
 
+
 def login(caminho_json):
     
     """

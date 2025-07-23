@@ -1,6 +1,7 @@
 import json
-caminho_restaurantes = 'banco_json/restaurante.json'
-caminho_cardapio = 'banco_json/cardapio.json'
+from crud_geral import CRUD
+caminho_restaurantes = 'bancos_json/restaurantes.json'
+caminho_cardapio = 'bancos_json/cardapio.json'
 
 def ler_dados_json():
         """
@@ -54,7 +55,7 @@ def pesquisa_geral(pesquisa, campo):
 
 
 def visualizar_restaurante(pesquisa, campo):
-    dados_restaurantes,_ = ler_dados_json()
+    dados_restaurantes, dados_cardapio = ler_dados_json()
 
     resultados = []
     
@@ -67,34 +68,178 @@ def visualizar_restaurante(pesquisa, campo):
         if pesquisa.lower().strip() in dado_pedido.lower().strip():
             resultados.append((nome_restaurante, cidade, palavras_chave, descricao))
 
-    i = 0
+    i = 1
     if resultados:
         print("----------------------------------------------------------")
-        for i, nome_restaurante, cidade, palavras_chave, descricao in resultados:
-            print(f'{i+1}.\n')
+        for nome_restaurante, cidade, palavras_chave, descricao in resultados:
+            print(f'{i}')
             print(f"||> Nome restaurante: {nome_restaurante}")
             print(f"||> Cidade: {cidade}")
             print(f"||> Palavras-chave: {palavras_chave}")
             print(f"||> Descrição: {descricao}")
             print("----------------------------------------------------------")
+            
+            i += 1
+            
+            
+        print("Deseja conhecer algum desses restaurantes?\n1.Sim\n2.Não")
+        opc = str(input("> "))
+        
+        if opc == '1':
+            nome_escolhido = input("Digite o nome do restaurante que deseja conhecer: ").strip().lower()
+
+            restaurante_encontrado = False
+            
+            for nome_restaurante, pratos in dados_cardapio.items():
+                if nome_escolhido.strip().lower() in nome_restaurante.strip().lower():
+                    restaurante_encontrado = True
+                    nome_restaurante_encontrado = nome_restaurante
+                    print(f"\nCardápio do restaurante: {nome_restaurante}")
+                    for prato in pratos:
+                        nome_prato = prato.get('nome-prato')
+                        descricao = prato.get('descricao', 'Não encontrado')
+                        preco = prato.get('preco', 'Não encontrado')
+
+                        print("----------------------------------------------------------")
+                        print(f"||> Prato: {nome_prato}")
+                        print(f"||> Descrição: {descricao}")
+                        print(f"||> Preço: {preco}R$")
+                        print("----------------------------------------------------------")
+                        
+            acao = str(input('1. Avaliar Restaurante\n2. Comentarios\n3. Adicionar aos favoritos\n4. Sair\n> '))
+            
+            if acao == '1':
+                avaliar_restaurante(nome_restaurante_encontrado)
+            elif acao == '2':
+                print(f"[DEBUG] nome_restaurante = '{nome_restaurante_encontrado}'")
+                visualizar_cometarios(nome_restaurante_encontrado)
+            elif acao == '3':
+                print
+            elif acao == '4':
+                pesquisa_cliente()
+                
+                        
+
+                if not restaurante_encontrado:
+                    print("Restaurante não encontrado no cardápio.")
+            
+        elif opc == '2':
+            return
     else:
         print("\nNada encontrado . . .")
+
+def avaliar_restaurante(restaurante):
     
-    if i == 1:
-        print("Deseja conhecer esse restaurante?\n1.Sim\n2.Não")
-        opc = int(input("> "))
-        if opc == 1:
-            print('*Informações Restaurante*')
-            acao = input('1.Avaliar Restaurante\n2.Comentar\n3.Adicionar aos favoritos\n4. Adicionar ao MENU Pessoal')
-            if acao == 4:
-                pass
-    
-    elif i > 1:
-        print("Deseja conhecer algum desses restaurantes?\n1.Sim \n2.Não")
-        opc = int(input("> "))
-        if opc == 1:
-            pass
+    dados_restaurantes,_ = ler_dados_json()
+    restaurante_encontrado = False
+    for rest in dados_restaurantes:
+        if rest['nome'].lower().strip() == restaurante.lower().strip():
+            print(f'Qual nota deseja atribuir de 0-5 para o restaurante {restaurante}: ')
+            avaliacao = float(input('> '))
             
+            restaurante_encontrado = True
+            if 0 <= avaliacao <= 5:
+                
+                if "avaliacao" not in rest:
+                    rest["avaliacao"] = {
+                        "media": 0,
+                        "soma_avaliacoes": 0,
+                        "quantidade_avaliacoes": 0
+                    }
+                    
+                    
+               
+               
+                rest["avaliacao"]["soma_avaliacoes"] += avaliacao
+                rest["avaliacao"]["quantidade_avaliacoes"] += 1
+                rest["avaliacao"]["media"] = (
+                    rest["avaliacao"]["soma_avaliacoes"] / rest["avaliacao"]["quantidade_avaliacoes"]
+                )
+                CRUD.salvar_dados('bancos_json/restaurantes.json', dados_restaurantes)
+                
+                
+                print("----------------------------------------------------------")
+                print(f'Avaliação de {avaliacao} atribuída com sucesso ao restaurante {restaurante}!.')
+                print("----------------------------------------------------------")
+                pesquisa_cliente()
+
+            else:
+                print('Avaliação inválida. Deve ser entre 0 e 5.')
+                
+        if restaurante_encontrado:
+            CRUD.salvar_dados('bancos_json/restaurantes.json', dados_restaurantes)
+              
+
+def visualizar_cometarios(restaurante):
+    banco_comentarios = CRUD.atualizar_dados('bancos_json/comentarios.json')
+    
+    if restaurante in banco_comentarios:
+        print(f'\nComentarios para o restaurante {restaurante}\n')
+        print("----------------------------------------------------------")
+        comentarios_restaurante = banco_comentarios[restaurante]
+        
+        for usuario, comentarios in comentarios_restaurante.items():
+            print(f"Usuário: {usuario}")
+            for comentario in comentarios:
+                print(f"- {comentario}")
+            print("----------------------------------------------------------")
+            
+            
+            
+        print('Deseja fazer um comentário nesse restaurante?\n1. Sim \n2. Não (Retorna para o menu de pesquisa)')
+        opc = str(input('> '))
+        
+        if opc == '1':
+            fazer_comentario(restaurante)
+        elif opc == '2':
+            pesquisa_cliente()
+        
+        
+        
+    else:
+        print(f"\nAinda não há comentários para o restaurante '{restaurante}'.\n")
+        print('Deseja fazer um comentário nesse restaurante?\n1. Sim \n2. Não')
+        opc = str(input('> '))
+        
+        if opc == '1':
+            fazer_comentario(restaurante)
+        elif opc == '2':
+            pesquisa_cliente()
+        
+        
+def fazer_comentario(restaurante):
+    dados_usuarios_temp = CRUD.atualizar_dados('bancos_json/clientes.json')
+    print("Digite seu email (será utilizado para encontrar seu nome de usuário):\n")
+    email = str(input('> '))
+    
+    nome_usuario = None
+
+    # Busca o nome do usuário pelo email
+    for usuario in dados_usuarios_temp:
+        if usuario.get('email') == email:
+            nome_usuario = usuario.get('nome')
+            break
+
+    if not nome_usuario:
+        print("Email não encontrado.")
+        return
+       
+    print(f"Digite seu comentario, {nome_usuario}: ")
+    comentario = str(input('> '))
+    
+    comentarios = CRUD.atualizar_dados('bancos_json/comentarios.json')
+    
+    if restaurante not in comentarios:
+        comentarios[restaurante] = {}
+    if nome_usuario not in comentarios[restaurante]:
+        comentarios[restaurante][nome_usuario] = []
+    
+    comentarios[restaurante][nome_usuario].append(comentario)
+    
+    CRUD.salvar_dados('bancos_json/comentarios.json', comentarios)
+    
+    print("Comentário adicionado com sucesso!")
+
         
 
 def pesquisa_prato(pesquisa):
@@ -132,7 +277,7 @@ def pesquisa_prato(pesquisa):
        
 
 
-def pesquisa_cliente(usuario_encontrado):
+def pesquisa_cliente():
     """
     - Menu de pesquisa para o cliente.
     - Permite escolher entre pesquisa por palavra-chave, prato, localização ou nome do restaurante.
@@ -149,21 +294,21 @@ def pesquisa_cliente(usuario_encontrado):
         print("Digite as palavras: ")
         pesquisa = input("> ")
         pesquisa_geral(pesquisa, 'palavra-chave')
-        pesquisa_cliente(usuario_encontrado)
+        pesquisa_cliente()
     elif opc == '2':
         print("Digite o que deseja: ")
         pesquisa = input("> ")
         pesquisa_prato(pesquisa)
-        pesquisa_cliente(usuario_encontrado)
+        pesquisa_cliente()
     elif opc == '3':
         print("Digite a localização: ")
         pesquisa = input("> ")
         pesquisa_geral(pesquisa, 'cidade')
-        pesquisa_cliente(usuario_encontrado)
+        pesquisa_cliente()
     elif opc == '4':
         print("Digite o restaurante: ")
         pesquisa = input("> ")
-        pesquisa_geral(pesquisa, 'nome')
-        pesquisa_cliente(usuario_encontrado)
+        visualizar_restaurante(pesquisa, 'nome')
+        pesquisa_cliente()
     elif opc == '5':
         print('Saindo . . .')
