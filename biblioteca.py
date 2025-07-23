@@ -76,7 +76,8 @@ class Biblioteca:
             return
 
         # Confirmação
-        confirmacao = str(input(f"Tem certeza que deseja deletar o MENU '{menu_encontrado}'?\n 1. Sim\n2. Não: ")).split()
+        print(f"Tem certeza que deseja deletar o MENU '{menu_encontrado}'?\n1. Sim\n2. Não").split()
+        confirmacao = str(input('> '))
         if confirmacao == '2':
             print("Ação cancelada.")
             return
@@ -95,7 +96,7 @@ class Biblioteca:
             return
 
         print(f"Digite o nome (ou parte do nome) do restaurante que deseja adicionar ao MENU '{nome_menu}':")
-        nome_busca = input("> ").lower()
+        nome_busca = str(input("> ")).lower()
 
         restaurantes_disponiveis = CRUD.ler_dados(caminho)
         restaurante_encontrado = None
@@ -158,9 +159,9 @@ class Biblioteca:
 
         chave_usuario = usuario_encontrado['id']
 
-        if chave_usuario not in dados_favoritos:
-            print("Você ainda não tem restaurantes favoritos.")
-            return
+        if chave_usuario not in dados_favoritos or len(dados_favoritos[chave_usuario]) == 0:
+                print("Você ainda não tem restaurantes favoritos.")
+                return
         else:
             print(f"\nSeus restaurantes favoritos:")
             i = 0
@@ -314,8 +315,8 @@ class Biblioteca:
                 Biblioteca.menu_opcoes(usuario_encontrado)
             elif opc == '3':
                 print('Voltando ao menu principal...')
-                from menu_cliente import menu_client
-                menu_client(usuario_encontrado)
+                from menu_cliente import menu_cliente
+                menu_cliente(usuario_encontrado)
                 break
             else:
                 print('Erro: Opção inválida. Tente novamente.')

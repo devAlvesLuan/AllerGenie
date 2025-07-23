@@ -1,6 +1,7 @@
 import json
 from crud_geral import CRUD
-from util import*
+from util import *
+from biblioteca import Biblioteca
 
 caminho_restaurantes = 'bancos_json/restaurantes.json'
 caminho_cardapio = 'bancos_json/cardapio.json'
@@ -109,7 +110,7 @@ def visualizar_restaurante(pesquisa, campo):
                         print(f"||> Preço: {preco}R$")
                         print("----------------------------------------------------------")
                         
-            acao = str(input('1. Avaliar Restaurante\n2. Comentarios\n3. Adicionar aos favoritos\n4. Sair\n> '))
+            acao = str(input('1. Avaliar Restaurante\n2. Comentarios\n3. Sair\n> '))
             
             if acao == '1':
                 Utils.limpar_tela()
@@ -118,8 +119,6 @@ def visualizar_restaurante(pesquisa, campo):
                 Utils.limpar_tela()
                 visualizar_cometarios(nome_restaurante_encontrado)
             elif acao == '3':
-                print
-            elif acao == '4':
                 Utils.limpar_tela()
                 pesquisa_cliente()               
                         
@@ -166,7 +165,7 @@ def avaliar_restaurante(restaurante):
               
 
 def visualizar_cometarios(restaurante):
-    banco_comentarios = CRUD.atualizar_dados('bancos_json/comentarios.json')
+    banco_comentarios = CRUD.ler_dados('bancos_json/comentarios.json')
     
     if restaurante in banco_comentarios:
         print(f'\nComentarios para o restaurante {restaurante}\n')
@@ -203,7 +202,7 @@ def visualizar_cometarios(restaurante):
         
         
 def fazer_comentario(restaurante):
-    dados_usuarios_temp = CRUD.atualizar_dados('bancos_json/clientes.json')
+    dados_usuarios_temp = CRUD.ler_dados('bancos_json/clientes.json')
     print("Digite seu email (será utilizado para encontrar seu nome de usuário):\n")
     email = str(input('> '))
     
@@ -222,7 +221,7 @@ def fazer_comentario(restaurante):
     print(f"Digite seu comentario, {nome_usuario}: ")
     comentario = str(input('> '))
     
-    comentarios = CRUD.atualizar_dados('bancos_json/comentarios.json')
+    comentarios = CRUD.ler_dados('bancos_json/comentarios.json')
     
     if restaurante not in comentarios:
         comentarios[restaurante] = {}
@@ -308,3 +307,4 @@ def pesquisa_cliente():
     elif opc == '5':
         print(Utils.pinta('Saindo . . .', 'amarelo'))
         return
+    

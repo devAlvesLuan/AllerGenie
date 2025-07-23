@@ -17,27 +17,27 @@ def editar_perfil(usuario_encontrado):
     
     print("Deseja modificar qual informação: ")
     print("\n1. Nome \n2. Senha \n3. Cidade \n4. Palavras-Chaves \n5. Descrição  \n6. Apagar Conta \n7. Sair")
-    opc = int(input("> "))
+    opc = str(input("> "))
 
-    if opc == 1:
-        CRUD.atualizar_nome(usuario_encontrado)
+    if opc == '1':
+        CRUD.atualizar_nome('bancos_json/restaurantes.json',usuario_encontrado)
         mostrar_perfil(usuario_encontrado)
-    elif opc == 2:
-        CRUD.atualizar_senha(usuario_encontrado)
+    elif opc == '2':
+        CRUD.atualizar_senha('bancos_json/restaurantes.json',usuario_encontrado)
         mostrar_perfil(usuario_encontrado)
-    elif opc == 3:
-        CRUD.adicionar_cidade(usuario_encontrado)
+    elif opc == '3':
+        CRUD.adicionar_cidade('bancos_json/restaurantes.json',usuario_encontrado)
         mostrar_perfil(usuario_encontrado)
-    elif opc == 4:
+    elif opc == '4':
         CrudRestaurante.adicionar_palavraChave(usuario_encontrado)
         mostrar_perfil(usuario_encontrado)
-    elif opc == 5:
+    elif opc == '5':
         CrudRestaurante.adicionar_descricao(usuario_encontrado)
         mostrar_perfil(usuario_encontrado)
-    elif opc == 6:
-        CRUD.apagar_conta(usuario_encontrado)
+    elif opc == '6':
+        CRUD.apagar_conta('bancos_json/restaurantes.json',usuario_encontrado)
         main()
-    elif opc == 7:
+    elif opc == '7':
         print(Utils.pinta('Saindo . . .', 'amarelo'))
         menu_empresa(usuario_encontrado)
     else:

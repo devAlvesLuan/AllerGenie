@@ -39,13 +39,13 @@ def main():
             if operacao == '1': #Checa qual tecla foi pressionada e para onde o código deve seguir
                 Utils.limpar_tela()
                 print(f'---------------------------------------\n  Realizando login de {usuario}...')
-                menu_cliente(login(repositorio_json))
+                login(repositorio_json)
             elif operacao == '2':
                 Utils.limpar_tela()
                 print(f'---------------------------------------\n  Realizando cadastro de {usuario}...')
                 modulo_cadastro()
-                usuario = login(repositorio_json)
-                menu_empresa(usuario)
+                login(repositorio_json)
+
             elif operacao == '0':
                 print(Utils.pinta('Saindo . . .', 'amarelo'))
                 exe = False

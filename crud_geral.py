@@ -21,7 +21,7 @@ class CRUD:
     
     """
     @staticmethod
-    def atualizar_dados(caminho):
+    def ler_dados(caminho):
         with open(caminho, 'r', encoding='utf-8') as file:
             return json.load(file)
         
@@ -43,7 +43,7 @@ class CRUD:
         Retorne:
         - Lista com os dados atualizados.
         """
-        banco_dados = CRUD.atualizar_dados(caminho)
+        banco_dados = CRUD.ler_dados(caminho)
         id_usuario = usuario_encontrado.get('id')
         
         for usuario in banco_dados:
@@ -52,46 +52,46 @@ class CRUD:
                 usuario_encontrado[campo] = dados_novos
         CRUD.salvar_dados(caminho, banco_dados)
     
-    def apagar_conta(self, usuario_encontrado):
-        
+    def apagar_conta(caminho, usuario_encontrado):
+        import pwinput  # certifique-se que esse módulo está instalado
         id_usuario = usuario_encontrado.get('id_usuario')
+        banco_dados = CRUD.ler_dados(caminho)
 
-        exc = True
-        print("Deseja continuar? ")
-        print("\n1. Sim \n2. Não")
-        opc = int(input("> "))
-        
-        if opc == 1:
-            email = input("Digite seu Email: ")
-            senha = input("Digite sua Senha: ")
-        
-            while exc:
-                banco_dados = CRUD.atualizar_dados()
-                if usuario_encontrado.get('email') == email and usuario_encontrado.get('senha') == senha:
+        while True:
+            print("Deseja continuar?")
+            print("\n1. Sim \n2. Não")
+            opc = input("> ").strip()
+
+            if opc == '1':
+                email = input("Digite seu email: ")
+                senha = pwinput.pwinput(prompt='Digite sua senha: ', mask='*')
+
+                if usuario_encontrado.get('email') == email and usuario_encontrado.get('senha') == criptografador(senha):
                     confir = input("Escreva 'Confirmo' para confirmar a exclusão da sua conta: ")
-            
+
                     if confir == 'Confirmo':
                         for u in banco_dados:
                             if u.get('id_usuario') == id_usuario:
                                 banco_dados.remove(u)
                                 break
-                        
+
                         Utils.limpar_tela()
                         print(Utils.pinta("--- Conta apagada com sucesso. . .", 'vermelho'))
-                        CRUD.salvar_dados(banco_dados)
-                        exc = False
+                        CRUD.salvar_dados(caminho, banco_dados)  # você tinha esquecido o caminho aqui
+                        return  # sair da função
+                    else:
+                        print("Confirmação inválida. Tente novamente.")
                 else:
-                    print("Tente novamente")
-                    exc = True
-        elif opc == 2:
-            print("Voltando para o perfil. . .")
-            return
-        else: 
-            print("Inválido")
-            CRUD.editar_perfil(usuario_encontrado)
+                    print("Email ou senha incorretos. Tente novamente.")
+            elif opc == '2':
+                print("Voltando para o perfil. . .")
+                from menu_cliente import menu_cliente
+                menu_cliente(usuario_encontrado)
+            else:
+                print("Opção inválida.")
+                return
 
-
-        return banco_dados
+                return banco_dados
     
     @staticmethod
     def atualizar_nome(caminho, usuario_encontrado):
@@ -117,7 +117,7 @@ class CRUD:
         print(Utils.pinta("--- Email atualizado com sucesso!", 'verde_claro'))
         return
     
-    def atualizar_senha(usuario_encontrado):
+    def atualizar_senha(caminho, usuario_encontrado):
         """
         - Atualiza a senha do restaurante após verificação da identidade.
 
@@ -136,7 +136,7 @@ class CRUD:
                         if dados_novos != '2':
                             confirmacao = pwinput.pwinput(prompt="Digite sua senha novamente: ", mask='*')
                             if validador_senha(dados_novos, confirmacao):
-                                CRUD.atualizar_usuario(usuario_encontrado, 'senha', criptografador(dados_novos))
+                                CRUD.atualizar_usuario(caminho, usuario_encontrado, 'senha', criptografador(dados_novos))
                                 
                                 Utils.limpar_tela()
                                 print(Utils.pinta("--- Senha modificada com sucesso!", 'verde_claro'))
@@ -166,7 +166,7 @@ class CRUD:
         
         dados_novos = input("Digite sua cidade: ")
         usuario_encontrado['cidade'] = dados_novos
-        banco_dados = CRUD.atualizar_dados(caminho)
+        banco_dados = CRUD.ler_dados(caminho)
 
         id_usuario = usuario_encontrado.get('id')
         for usuario in banco_dados:
@@ -268,7 +268,7 @@ class CrudCliente(CRUD):
         dados_novos = input("Digite sua(s) alergia(s): ")
         usuario_encontrado['alergia'] = dados_novos
         
-        banco_dados = CRUD.atualizar_dados(caminho)
+        banco_dados = CRUD.ler_dados(caminho)
         
         for usuario in banco_dados:
             if usuario.get('id') == id_usuario:

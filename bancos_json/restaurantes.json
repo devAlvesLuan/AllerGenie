@@ -104,5 +104,17 @@
         },
         "palavra-chave": "muita massa, e comida massa",
         "cidade": "& C:/Users/luanm/AppData/Local/Microsoft/WindowsApps/python3.12.exe c:/Users/luanm/AllerGenie/start_page.py"
+    },
+    {
+        "nome": "carlitos@gmail.com",
+        "email": "carlitos@gmail.com",
+        "senha": "51201ebd0f3464e91b086ae4cf6981cdd221e92c54670dcfcd623e5112c7f5a1",
+        "id": "2311928812528",
+        "cnpj": "Não cadastrado.",
+        "avaliacao": {
+            "media": 0.0,
+            "soma_avaliacoes": 0,
+            "quantidade_avaliacoes": 0
+        }
     }
 ]

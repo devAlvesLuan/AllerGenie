@@ -1,7 +1,8 @@
 from crud_geral import *
 from util import *
 from pesquisa import pesquisa_cliente
-from start_page import main
+from biblioteca import Biblioteca
+
 banco_dados = []
 caminho = 'bancos_json/clientes.json'
 caminho_restaurantes = "bancos_json/restaurantes.json"
@@ -37,6 +38,7 @@ def editar_perfil(usuario_encontrado):
         mostrar_perfil(usuario_encontrado)
     elif opc == 5:
         CRUD.apagar_conta('bancos_json/clientes.json', usuario_encontrado)
+        from start_page import main
         main()
     elif opc == 6:
         print(Utils.pinta('Saindo . . .', 'amarelo'))
@@ -105,4 +107,4 @@ def menu_cliente(usuario_encontrado):
             menu_cliente(usuario_encontrado)
         elif tecla == 3:
             Utils.limpar_tela()
-            print("bliblibliblib")
+            Biblioteca.menu_pessoal(usuario_encontrado)
