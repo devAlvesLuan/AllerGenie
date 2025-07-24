@@ -30,6 +30,161 @@ AllerGenie é um aplicativo voltado para pessoas com restrições alimentares, c
 
 ---
 
+## 💻 Trechos de Código
+
+Abaixo estão alguns exemplos representativos das principais funcionalidades do sistema:
+
+### Avaliação de restaurante
+Após uma pesquisa, é possível avaliar um restaurante, dando uma nota de 0-5. No final, se faz uma conta para descobrir a real media desse restaurante.
+
+```python
+  def avaliar_restaurante(restaurante):
+    
+    dados_restaurantes,_ = ler_dados_json()
+    restaurante_encontrado = False
+    for rest in dados_restaurantes:
+        if rest['nome'].lower().strip() == restaurante.lower().strip():
+            print(f'Qual nota deseja atribuir de 0-5 para o restaurante {restaurante}: ')
+            avaliacao = float(input('> '))
+            
+            restaurante_encontrado = True
+            if 0 <= avaliacao <= 5:
+               
+                rest["avaliacao"]["soma_avaliacoes"] += avaliacao
+                rest["avaliacao"]["quantidade_avaliacoes"] += 1
+                rest["avaliacao"]["media"] = (
+                    rest["avaliacao"]["soma_avaliacoes"] / rest["avaliacao"]["quantidade_avaliacoes"]
+                )
+                CRUD.salvar_dados('bancos_json/restaurantes.json', dados_restaurantes)
+                
+                Utils.limpar_tela()
+                print("----------------------------------------------------------")
+                print(Utils.pinta(f'Avaliação de {avaliacao} atribuída com sucesso ao restaurante {restaurante}!.', 'verde-claro'))
+                print("----------------------------------------------------------\n")
+                
+                pesquisa_cliente()
+
+            else:
+                print('Avaliação inválida. Deve ser entre 0 e 5.')
+                
+        if restaurante_encontrado:
+            CRUD.salvar_dados('bancos_json/restaurantes.json', dados_restaurantes)
+```
+
+O JSON fica organizado dessa maneira
+```JSON
+ {
+        "nome": "carlitos@gmail.com",
+        "email": "carlitos@gmail.com",
+        "senha": "51201ebd0f3464e91b086ae4cf6981cdd221e92c54670dcfcd623e5112c7f5a1",
+        "id": "2311928812528",
+        "cnpj": "Não cadastrado.",
+        "avaliacao": {
+            "media": 0.0,
+            "soma_avaliacoes": 0,
+            "quantidade_avaliacoes": 0
+        }
+```
+
+### Visualizar/Adicionar comentários
+É possível olhar comentários feitos por outros usuários, além de adicionar um comentário ao restaurante
+
+```python
+def visualizar_cometarios(restaurante):
+    banco_comentarios = CRUD.atualizar_dados('bancos_json/comentarios.json')
+
+    # Verifica se o restaurante está dentro do banco de comentários
+    if restaurante in banco_comentarios:
+        print(f'\nComentários para o restaurante {restaurante}\n')
+        print("----------------------------------------------------------")
+        comentarios_restaurante = banco_comentarios[restaurante]
+
+        for usuario, comentarios in comentarios_restaurante.items():
+            print(f"Usuário: {usuario}")
+            for comentario in comentarios:
+                print(f"- {comentario}")
+            print("----------------------------------------------------------")
+
+    else:
+        print(Utils.pinta(f"\nAinda não há comentários para o restaurante '{restaurante}'.\n", 'vermelho_claro'))
+        while True:
+            print('Deseja fazer o primeiro comentário nesse restaurante?\n1. Sim \n2. Não (Retorna para o menu de pesquisa)')
+            opc = input('> ').strip()
+
+            if opc == '1':
+                fazer_comentario(restaurante)
+                break  # Sai do loop após fazer o comentário
+            elif opc == '2':
+                pesquisa_cliente()
+                break  # Sai do loop após retornar
+            else:
+                print('\nOpção inválida. Digite 1 para Sim ou 2 para Não.\n')
+
+    # Repetição até digitar uma opção válida
+    while True:
+        print('Deseja fazer um comentário nesse restaurante?\n1. Sim \n2. Não (Retorna para o menu de pesquisa)')
+        opc = input('> ').strip()
+
+        if opc == '1':
+            fazer_comentario(restaurante)
+            break  # Sai do loop após fazer o comentá rio
+        elif opc == '2':
+            pesquisa_cliente()
+            break  # Sai do loop após retornar
+        else:
+            print('\nOpção inválida. Digite 1 para Sim ou 2 para Não.\n')
+
+
+def fazer_comentario(restaurante):
+    dados_usuarios_temp = CRUD.atualizar_dados('bancos_json/clientes.json')
+    
+    print("Digite seu email (será utilizado para encontrar seu nome de usuário):\n")
+    email = input('> ').strip()
+
+    nome_usuario = None
+
+    # Procura o nome do usuário com base no email
+    for usuario in dados_usuarios_temp:
+        if usuario.get('email') == email:
+            nome_usuario = usuario.get('nome')
+            break
+ 
+    # Se o email não for encontrado
+    if not nome_usuario:
+        print("Email não encontrado.\n")
+        return
+
+    # Entrada do comentário
+    while True:
+        print(f"Digite seu comentário, {nome_usuario}: ")
+        comentario = input('> ').strip()
+
+        if len(comentario) == 0:
+            print("\nComentário não pode ser vazio. Tente novamente.\n")
+        else:
+            break  # Comentário válido
+
+    # Atualiza os comentários do JSON
+    comentarios = CRUD.atualizar_dados('bancos_json/comentarios.json')
+
+    # Se o restaurante ainda não tem comentários, cria a chave
+    if restaurante not in comentarios:
+        comentarios[restaurante] = {}
+    if nome_usuario not in comentarios[restaurante]:
+        comentarios[restaurante][nome_usuario] = []
+
+    # Adiciona o comentário ao usuário
+    comentarios[restaurante][nome_usuario].append(comentario)
+
+    # Salva os comentários atualizados
+    CRUD.salvar_dados('bancos_json/comentarios.json', comentarios)
+
+    Utils.limpar_tela()
+    print(Utils.pinta("Comentário adicionado com sucesso!", 'verde_claro'))
+
+```
+
+
 ## 📄 Estrutura do Projeto
 
 O sistema é desenvolvido em Python e armazena os dados dos usuários (clientes e restaurantes) em arquivos `.json`. Isso inclui informações de perfil, cardápios e filtros de pesquisa.
