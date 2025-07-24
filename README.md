@@ -260,6 +260,8 @@ Este projeto possui diversos fluxogramas criados para ilustrar e organizar o flu
 ## ✅ Pesquisa
 🔗 [Acessar fluxograma](https://miro.com/app/board/uXjVIvGquwY=/?share_link_id=880846900225)
 
+## ✅ Avaliar/Visualizar e Comentar/Add aos favoritos
+🔗 [Acessar fluxograma] https://miro.com/app/board/uXjVJbesLVI=/?share_link_id=950876215877
 
 ## 📂 Link Alternativo: Fluxogramas no Google Drive
 
