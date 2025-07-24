@@ -109,7 +109,10 @@ def visualizar_restaurante(pesquisa, campo):
                         print(f"||> Descrição: {descricao}")
                         print(f"||> Preço: {preco}R$")
                         print("----------------------------------------------------------")
-                        
+
+            if not restaurante_encontrado:
+                print(Utils.pinta("Restaurante não encontrado no cardápio.", 'vermelho'))  
+
             acao = str(input('1. Avaliar Restaurante\n2. Comentarios\n3. Sair\n> '))
             
             if acao == '1':
@@ -120,10 +123,8 @@ def visualizar_restaurante(pesquisa, campo):
                 visualizar_cometarios(nome_restaurante_encontrado)
             elif acao == '3':
                 Utils.limpar_tela()
-                pesquisa_cliente()               
+                return             
                         
-                if not restaurante_encontrado:
-                    print(Utils.pinta("Restaurante não encontrado no cardápio.", 'vermelho'))
             
         elif opc == '2':
             return
@@ -155,7 +156,7 @@ def avaliar_restaurante(restaurante):
                 print(Utils.pinta(f'Avaliação de {avaliacao} atribuída com sucesso ao restaurante {restaurante}!.', 'verde-claro'))
                 print("----------------------------------------------------------\n")
                 
-                pesquisa_cliente()
+                return
 
             else:
                 print('Avaliação inválida. Deve ser entre 0 e 5.')
@@ -186,7 +187,7 @@ def visualizar_cometarios(restaurante):
         if opc == '1':
             fazer_comentario(restaurante)
         elif opc == '2':
-            pesquisa_cliente()
+            return
         
         
         
@@ -198,7 +199,7 @@ def visualizar_cometarios(restaurante):
         if opc == '1':
             fazer_comentario(restaurante)
         elif opc == '2':
-            pesquisa_cliente()
+            return
         
         
 def fazer_comentario(restaurante):
@@ -271,7 +272,7 @@ def pesquisa_prato(pesquisa):
        
 
 
-def pesquisa_cliente():
+def pesquisa_cliente(usuario_encontrado):
     """
     - Menu de pesquisa para o cliente.
     - Permite escolher entre pesquisa por palavra-chave, prato, localização ou nome do restaurante.
@@ -288,23 +289,24 @@ def pesquisa_cliente():
         print(Utils.pinta("Digite as palavras: ", 'ciano'))
         pesquisa = input("> ")
         pesquisa_geral(pesquisa, 'palavra-chave')
-        pesquisa_cliente()
+        pesquisa_cliente(usuario_encontrado)
     elif opc == '2':
         print(Utils.pinta("Digite o que deseja: ", 'ciano'))
         pesquisa = input("> ")
         pesquisa_prato(pesquisa)
-        pesquisa_cliente()
+        pesquisa_cliente(usuario_encontrado)
     elif opc == '3':
         print(Utils.pinta("Digite a localização: ", 'ciano'))
         pesquisa = input("> ")
         pesquisa_geral(pesquisa, 'cidade')
-        pesquisa_cliente()
+        pesquisa_cliente(usuario_encontrado)
     elif opc == '4':
         print(Utils.pinta("Digite o restaurante: ", 'ciano'))
         pesquisa = input("> ")
         visualizar_restaurante(pesquisa, 'nome')
-        pesquisa_cliente()
+        pesquisa_cliente(usuario_encontrado)
     elif opc == '5':
         print(Utils.pinta('Saindo . . .', 'amarelo'))
-        return
+        from menu_cliente import menu_cliente
+        menu_cliente(usuario_encontrado)
     

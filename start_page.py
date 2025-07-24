@@ -1,4 +1,3 @@
-from login import *
 from cliente_create import *
 from res_create import res_create
 import shutil
@@ -39,11 +38,13 @@ def main():
             if operacao == '1': #Checa qual tecla foi pressionada e para onde o código deve seguir
                 Utils.limpar_tela()
                 print(f'---------------------------------------\n  Realizando login de {usuario}...')
+                from login import login
                 login(repositorio_json)
             elif operacao == '2':
                 Utils.limpar_tela()
                 print(f'---------------------------------------\n  Realizando cadastro de {usuario}...')
                 modulo_cadastro()
+                from login import login
                 login(repositorio_json)
 
             elif operacao == '0':

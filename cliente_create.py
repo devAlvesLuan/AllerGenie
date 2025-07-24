@@ -19,21 +19,29 @@ def cliente_create():
     print(Utils.pinta("================================================================\n          ---- Seja bem-vindo a tela de cadastro! ----\n================================================================", 'verde_claro'))
     while True:
         print(Utils.pinta('----------------------------', 'ciano'))
-        nome_cliente = input('Insira seu nome: ')
+        nome_cliente = str(input('Insira seu nome: (Pressione 0 para retornar)\n> '))
+        if nome_cliente == '0':
+            from start_page import main
+            main()
         if validador_nome(nome_cliente):
             break
     while True:
         print(Utils.pinta('----------------------------', 'ciano'))
-        email_cliente = input('Insira seu email (Exemplo: cleyton@gmail.com):').lower().strip()
-        if validador_email(email_cliente, dados):
+        email_cliente = str(input('Insira seu email (Exemplo: cleyton@gmail.com) (Pressione 0 para retornar)\n> ')).lower().strip()
+        if email_cliente == '0':
+            from start_page import main
+            main()
+        elif validador_email(email_cliente, dados):
             break
 
     while True:
         print(Utils.pinta('----------------------------', 'ciano'))
-        senha_cliente = pwinput.pwinput(prompt='Insira sua senha (Ela deve incluir pelo menos 10 caractéres, uma letra maiúscula e dois número):', mask = '*')
-        
-        confirm_senha = pwinput.pwinput(prompt='Insira sua senha novamente:', mask = '*')
-        if validador_senha(senha_cliente, confirm_senha):
+        senha_cliente = pwinput.pwinput(prompt='Insira sua senha (Ela deve incluir pelo menos 10 caractéres, uma letra maiúscula e dois número):\n(Pressione 0 para retornar)\n> ', mask = '*')
+        confirm_senha = pwinput.pwinput(prompt='Insira sua senha novamente: (Pressione 0 para retornar)\n> ', mask = '*')
+        if confirm_senha == '0' or senha_cliente == '0':
+            from start_page import main
+            main()
+        elif validador_senha(senha_cliente, confirm_senha):
             break
     validado = True
     

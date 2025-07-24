@@ -28,7 +28,7 @@ def login(caminho_json):
     while executando:
 
         print(Utils.pinta('----------------------------', 'ciano'))
-        email = str(input(("Digite seu email: ")).strip().lower())
+        email = str(input(("Digite seu email: (Pressione 0 para voltar)")).strip().lower())
 
         usuario_encontrado = None
 
@@ -36,20 +36,28 @@ def login(caminho_json):
             if usuario.get('email') == email:
                 usuario_encontrado = usuario
                 break
-
-        if usuario_encontrado:
-            print(Utils.pinta('----------------------------', 'ciano'))
-            senha = pwinput.pwinput(prompt='Insira sua senha: ', mask='*')
-            if usuario_encontrado.get('senha') == criptografador(senha):
-                Utils.limpar_tela()
-                print(Utils.pinta("--- Login realizado com sucesso! ---", 'verde_claro'))
-                if 'cnpj' not in usuario_encontrado:
-                    menu_cliente(usuario_encontrado)
+        
+        if email != '0':
+            if usuario_encontrado:
+                print(Utils.pinta('----------------------------', 'ciano'))
+                senha = pwinput.pwinput(prompt='Insira sua senha: (Pressione 0 para voltar)', mask='*')
+                if senha != '0':
+                    if usuario_encontrado.get('senha') == criptografador(senha):
+                        Utils.limpar_tela()
+                        print(Utils.pinta("--- Login realizado com sucesso! ---", 'verde_claro'))
+                        if 'cnpj' not in usuario_encontrado:
+                            menu_cliente(usuario_encontrado)
+                        else:
+                            menu_empresa(usuario_encontrado)
+                    else:
+                        print(Utils.pinta('----------------------------\n', 'negrito'))
+                        print("Erro: Senha inválida.")
                 else:
-                    menu_empresa(usuario_encontrado)
+                    print('Voltando...')
             else:
                 print(Utils.pinta('----------------------------\n', 'negrito'))
-                print("Erro: Senha inválida.")
+                print("Erro: Email não cadastrado.")
         else:
-            print(Utils.pinta('----------------------------\n', 'negrito'))
-            print("Erro: Email não cadastrado.")
+            print('Voltando...')
+            from start_page import main
+            main()

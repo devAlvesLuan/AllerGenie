@@ -103,7 +103,7 @@ def menu_cliente(usuario_encontrado):
             mostrar_perfil(usuario_encontrado)
         elif tecla == 2:
             Utils.limpar_tela()
-            pesquisa_cliente()
+            pesquisa_cliente(usuario_encontrado)
             menu_cliente(usuario_encontrado)
         elif tecla == 3:
             Utils.limpar_tela()

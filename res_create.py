@@ -20,14 +20,18 @@ def res_create():
     execucao_opc = True
     while True:
         print(Utils.pinta('----------------------------', 'ciano'))
-        nome_emp = input('Insira o nome da empresa: ')
-        if validador_nome(nome_emp):
+        str(print('Insira o nome da empresa: (Pressione 0 para retornar)'))
+        nome_emp = str(input('> '))
+        if nome_emp == '0':
+            from start_page import main
+            main()
+        elif validador_nome(nome_emp):
             break
 
     while execucao_opc:
             print(Utils.pinta('----------------------------', 'ciano'))
             print('Incluir CNPJ? (Opcional)\n 1. Sim\n 2. Não')
-            opcao = input('> ')
+            opcao = str(input('> '))
             if opcao == '1':
                 cnpj_opc = True
                 execucao_opc = False
@@ -42,23 +46,30 @@ def res_create():
     if cnpj_opc: #Checa se o usuário quer inserir CNPJ ou não
         while True:
             print(Utils.pinta('----------------------------', 'ciano'))
-            cnpj = input('Insira seu CNPJ:')
-            if validador_cnpj(cnpj_opc, cnpj, dados):
+            print('Insira seu CNPJ (Pressione 0 para retornar)')
+            cnpj = str(input('> '))
+            if cnpj == '0':
+                from start_page import main
+                main()
+            elif validador_cnpj(cnpj_opc, cnpj, dados):
                 break
     else:
         cnpj = 'Não cadastrado.'
 
     while True:
         print(Utils.pinta('----------------------------', 'ciano'))
-        email_emp = input('Insira seu email (Exemplo: cleyton@gmail.com):').lower().strip()
+        email_emp = input('Insira seu email (Exemplo: cleyton@gmail.com): (Pressione 0 para retornar)').lower().strip()
         if validador_email(email_emp, dados):
             break
 
     while True:
         print(Utils.pinta('----------------------------', 'ciano'))
-        senha_emp = pwinput.pwinput(prompt='Insira sua senha (Ela deve incluir pelo menos 10 caractéres, uma letra maiúscula e dois número):', mask = '*')
-        confirm_senha = pwinput.pwinput(prompt='Insira sua senha novamente:', mask = '*')
-        if validador_senha(senha_emp, confirm_senha):
+        senha_emp = pwinput.pwinput(prompt='Insira sua senha (Ela deve incluir pelo menos 10 caractéres, uma letra maiúscula e dois número):\n(Pressione 0 para retornar)\n> ', mask = '*')
+        confirm_senha = pwinput.pwinput(prompt='Insira sua senha novamente: (Pressione 0 para retornar)\n> ', mask = '*')
+        if senha_emp == '0' or confirm_senha == '0':
+            from start_page import main
+            main()
+        elif validador_senha(senha_emp, confirm_senha):
             break
     
     Utils.limpar_tela()

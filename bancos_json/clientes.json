@@ -45,5 +45,29 @@
         "id": "1807116827376",
         "alergia": "AAAAAAAAAAAAAAAAAAA",
         "cidade": "BBBBBBBBBBBBB"
+    },
+    {
+        "nome": "carlitos",
+        "email": "carlitos@gmail.com",
+        "senha": "51201ebd0f3464e91b086ae4cf6981cdd221e92c54670dcfcd623e5112c7f5a1",
+        "id": "2242153353392"
+    },
+    {
+        "nome": "Carlos",
+        "email": "carlos@gmail.com",
+        "senha": "1b80baf386b56e458bfec43b3f9de7ba70daa6b871a760a15a83849cb6751cb4",
+        "id": "2146981318960"
+    },
+    {
+        "nome": "carlos",
+        "email": "carlos2@gmail.com",
+        "senha": "9d408e065e943afb76bc91dfc557176a2b8ff405be4a9274a429e554516dd48b",
+        "id": "2366698492912"
+    },
+    {
+        "nome": "carlos",
+        "email": "carlos3@gmail.com",
+        "senha": "1b80baf386b56e458bfec43b3f9de7ba70daa6b871a760a15a83849cb6751cb4",
+        "id": "1475574521264"
     }
 ]

@@ -19,9 +19,9 @@
         "descricao": "Onde cada prato é uma linha de código bem executada. Gastronomia para devs!",
         "cidade": "Boa Viagem, Casa Forte, Madalena",
         "avaliacao": {
-            "media": 4.0,
-            "soma_avaliacoes": 8.0,
-            "quantidade_avaliacoes": 2
+            "media": 4.25,
+            "soma_avaliacoes": 17.0,
+            "quantidade_avaliacoes": 4
         }
     },
     {
