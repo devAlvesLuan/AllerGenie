@@ -192,7 +192,7 @@ def fazer_comentario(restaurante):
 ![Tela de Menu do Cliente](imagens_read.me/read_cliente.jpg)
 
 ### 🔐 Tela de Pesquisa do Cliente
-![Tela de Menu do Cliente](imagens_read.me/nodulo_pesquisa.jpg)
+![Tela de Menu do Cliente](imagens_read.me/modulo_pesquisa.jpg)
 
 ## 📄 Estrutura do Projeto
 
