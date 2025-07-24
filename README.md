@@ -188,7 +188,7 @@ def fazer_comentario(restaurante):
 ### 🔐 Tela de Menu do Cliente
 ![Tela de Menu do Cliente](imagens_read.me/menu_cliente.jpg)
 
-### 🔐 Tela de Visualização de Perfel do Cliente
+### 🔐 Tela de Visualização de Perfil do Cliente
 ![Tela de Menu do Cliente](imagens_read.me/read_cliente.jpg)
 
 ### 🔐 Tela de Pesquisa do Cliente
