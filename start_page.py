@@ -1,15 +1,8 @@
 from cliente_create import *
 from res_create import res_create
-import shutil
-import os
 from menu_cliente import *
 from menu_restaurante import *
 from util import *
-
-if os.path.exists("pycache"):
-    shutil.rmtree("pycache")
-if os.path.exists(".history"):
-    shutil.rmtree(".history")
 
 def main():
     """

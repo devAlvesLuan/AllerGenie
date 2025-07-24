@@ -19,5 +19,20 @@
             }
         ],
         "Sem Gluten": []
+    },
+    "2406271686640": {
+        "Glutén Free": [
+            {
+                "nome": "Tapiocaria Raiz",
+                "cnpj": "Não cadastrado.",
+                "email": "raiz.tapioca@yahoo.com",
+                "senha": "a0347d3178f9a9c3164c4fc29b8483cf75f18b02c31f685343b2bb3a77c6f3ee",
+                "id": "5566378902317",
+                "palavra-chave": "regional, tapioca, nordeste, sem glúten, sem nozes",
+                "descricao": "Tapiocas artesanais recheadas de história e sabor nordestino!",
+                "cidade": "Camaragibe, Várzea, Afogados",
+                "avalicao": 5.0
+            }
+        ]
     }
 }
